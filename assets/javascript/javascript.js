@@ -1,4 +1,3 @@
-
 //function checking firebase for ingredient list - if condition
 //if no list exists create empty array
 var ingrCount = 0
@@ -64,24 +63,37 @@ var database = firebase.database();
 //Spoonacular API key I got from mashape is in the header property in the .param object
 
 //This variable captures the users ingredients from input field
-var userIngredients = $("#ingredients").val().trim();
 
-//URL set up using jquery param method and plugging in users ingredients into URL parameters
-var queryURL = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients';
-queryURL += '?' + $.param({
-    'fillIngredients': false,
-    'ingredients': userIngredients,
-    'limitLicense': false,
-    'number': 1,
-    'ranking': 1
+$("#submitForRecipes").on('click', function(event) {
 
-}); //fillIngredients=false&ingredients=apples%2Cflour%2Csugar&limitLicense=false&number=5&ranking=1'
 
-$.ajax({
-    url: queryURL,
-    headers: { 'X-Mashape-Key': 'xsChWYIjxDmshHomTXHaaWmn7DuTp1ernr7jsnEXl2Nrg8DGIE' },
-    method: 'GET'
-}).done(function(response) {
+    event.preventDefault();
 
-    console.log(response);
-})
+    var userIngredients;
+
+    for (var i = 0; i < ingrCount; i++) {
+        userIngredients = userIngredients + $("#ingredient-" + i).val().trim();
+    }
+
+    console.log(userIngredients);
+    //URL set up using jquery param method and plugging in users ingredients into URL parameters
+    var queryURL = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients';
+    queryURL += '?' + $.param({
+        'fillIngredients': false,
+        'ingredients': userIngredients,
+        'limitLicense': false,
+        'number': 1,
+        'ranking': 1
+
+    }); //fillIngredients=false&ingredients=apples%2Cflour%2Csugar&limitLicense=false&number=5&ranking=1'
+
+    $.ajax({
+        url: queryURL,
+        headers: { 'X-Mashape-Key': 'xsChWYIjxDmshHomTXHaaWmn7DuTp1ernr7jsnEXl2Nrg8DGIE' },
+        method: 'GET'
+    }).done(function(response) {
+
+        console.log(response);
+    })
+
+});
