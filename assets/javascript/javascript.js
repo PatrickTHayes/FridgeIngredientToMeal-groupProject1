@@ -19,7 +19,7 @@ $(function() {
             part: "snippet",
             type: "video",
             q: encodeURIComponent($("#ingredients").val()), //I'm not sure if this is needed at the end. Testing shows it works with spaces without it added//.replace(/%20/g, "+"),
-            maxResults: 3,
+            maxResults: 5,
             order: "viewCount",
             publishedAfter: "2000-01-01T00:00:00Z"
         })
@@ -29,11 +29,21 @@ $(function() {
             var results = response.result;
             $.each(results.items, function(index, item) {
                 console.log(item)
-                $("#videosGoHere").append(item.id.videoId + " " + item.snippet.title + "<br>")
+                //$("#videosGoHere").append(item.id.videoId + " " + item.snippet.title + "<br>")
                 var videoId = item.id.videoId;
-                var htmlVideo = "<iframe src='https://www.youtube.com/embed/" + videoId + "' width='560' height='315' frameborder='0' allowfullscreen></iframe>";
-                $("#videosGoHere").append(htmlVideo);
+                var htmlVideo = "<a class='carousel-item' href='#one!'><div class='video-container'><iframe src='https://www.youtube.com/embed/" + videoId + "' width='560' height='315' frameborder='0' allowfullscreen></iframe></div></a>";
+                $(".carousel").append(htmlVideo);
             })
+            $(document).ready(function() {
+                $('.carousel').carousel({
+                    //height: 500,
+                    padding: 100,
+                    shift: 50,
+                    dist: -100,
+
+                    indicators: true,
+                });
+            });
         })
     })
 })
@@ -46,11 +56,11 @@ function init() {
 }
 $(document).ready(function() {
     $('.carousel').carousel({
-        height: 500,
-        //padding: 100,
-        shift: 100,
-        // distance: +100,
+        //height: 500,
+        padding: 100,
+        shift: 50,
+        dist: -100,
 
-        indicator: true,
+        indicators: true,
     });
 });

@@ -1,3 +1,12 @@
 .active {
     height: 500px;
 }
+
+.carousel-item {
+    height: 500px !important;
+    width: 500px !important;
+}
+
+.carousel {
+    height: 600px !important;
+}
