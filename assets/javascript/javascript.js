@@ -31,8 +31,8 @@ $(function() {
                 console.log(item)
                 $("#videosGoHere").append(item.id.videoId + " " + item.snippet.title + "<br>")
                 var videoId = item.id.videoId;
-                var htmlVideo = "<iframe src='https://www.youtube.com/embed/" + videoId + "' width='560' height='315' frameborder='0' allowfullscreen></iframe>";
-                $("#videosGoHere").append(htmlVideo);
+                var htmlVideo = "<a class='video-container' href='#one!'><iframe src='https://www.youtube.com/embed/" + videoId + "' width='560' height='315' frameborder='0' allowfullscreen></iframe>";
+                $(".carousel").append(htmlVideo);
             })
         })
     })
