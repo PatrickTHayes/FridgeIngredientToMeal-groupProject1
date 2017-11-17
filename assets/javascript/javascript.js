@@ -1,3 +1,4 @@
+
 //function checking firebase for ingredient list - if condition
 //if no list exists create empty array
 var ingrCount = 0
@@ -43,3 +44,15 @@ $(document.body).on("click", ".deleteBox", function() {
     $("#ingredient-" + ingrNumber).remove();
 
 });
+
+var config = {
+    apiKey: "AIzaSyB3lbSA5Y4e4StvaYtm5sno0pDad-90NeM",
+    authDomain: "groupproject1-fridgetomeal.firebaseapp.com",
+    databaseURL: "https://groupproject1-fridgetomeal.firebaseio.com",
+    projectId: "groupproject1-fridgetomeal",
+    storageBucket: "groupproject1-fridgetomeal.appspot.com",
+    messagingSenderId: "32759158700"
+};
+
+firebase.initializeApp(config);
+var database = firebase.database();
