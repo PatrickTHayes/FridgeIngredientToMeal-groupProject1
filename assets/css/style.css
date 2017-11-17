@@ -1,7 +1,24 @@
 .page-header {
-    background: #536f9b;
+    background: #1e88e5;
 }
 
 .white-text {
     color: black !important;
 }
+
+#addIngrButton {
+    margin-top: 12px;
+}
+
+.deleteBox {
+    background: #adafc6;
+    width: 27px;
+    height: 27px;
+}
+
+#submitContent {
+    border-style: inset;
+    margin-left: 5px;
+}
+
+
