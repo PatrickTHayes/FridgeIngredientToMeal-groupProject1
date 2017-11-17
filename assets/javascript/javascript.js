@@ -18,10 +18,11 @@ $(function() {
         var request = gapi.client.youtube.search.list({
             part: "snippet",
             type: "video",
+            //change the hook here to whatever are ingredients
             q: encodeURIComponent($("#ingredients").val()), //I'm not sure if this is needed at the end. Testing shows it works with spaces without it added//.replace(/%20/g, "+"),
             maxResults: 5,
             order: "viewCount",
-            publishedAfter: "2000-01-01T00:00:00Z"
+            publishedAfter: "2015-01-01T00:00:00Z"
         })
         //execute request
         request.execute(function(response) {
@@ -54,7 +55,7 @@ function init() {
         //yt api is ready
     })
 }
-$(document).ready(function() {
+/*$(document).ready(function() {
     $('.carousel').carousel({
         //height: 500,
         padding: 100,
@@ -64,3 +65,4 @@ $(document).ready(function() {
         indicators: true,
     });
 });
+*/
