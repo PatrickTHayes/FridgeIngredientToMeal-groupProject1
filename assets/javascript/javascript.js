@@ -31,7 +31,8 @@ $(function() {
                 console.log(item)
                 $("#videosGoHere").append(item.id.videoId + " " + item.snippet.title + "<br>")
                 var videoId = item.id.videoId;
-                var htmlVideo = "";
+                var htmlVideo = "<iframe src='https://www.youtube.com/embed/" + videoId + "' width='560' height='315' frameborder='0' allowfullscreen></iframe>";
+                $("#videosGoHere").append(htmlVideo);
             })
         })
     })
@@ -43,3 +44,6 @@ function init() {
         //yt api is ready
     })
 }
+$(document).ready(function() {
+    $('.carousel').carousel();
+});
