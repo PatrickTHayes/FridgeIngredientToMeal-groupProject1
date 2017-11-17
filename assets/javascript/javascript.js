@@ -26,6 +26,13 @@ $(function() {
         //execute request
         request.execute(function(response) {
             console.log(response);
+            var results = response.result;
+            $.each(results.items, function(index, item) {
+                console.log(item)
+                $("#videosGoHere").append(item.id.videoId + " " + item.snippet.title + "<br>")
+                var videoId = item.id.videoId;
+                var htmlVideo = "";
+            })
         })
     })
 })
