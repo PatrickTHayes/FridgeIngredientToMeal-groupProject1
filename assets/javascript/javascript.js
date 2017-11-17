@@ -13,11 +13,22 @@ var database = firebase.database();
 
 
 
-//Spoonacular API key I got from mashape
 
-var spoonKey = 'X-Mashape-Key: xsChWYIjxDmshHomTXHaaWmn7DuTp1ernr7jsnEXl2Nrg8DGIE'
+//Spoonacular API key I got from mashape is in the header property in the .param object
 
-var queryURL = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?fillIngredients=false&ingredients=apples%2Cflour%2Csugar&limitLicense=false&number=5&ranking=1'
+//This variable captures the users ingredients from input field
+var userIngredients = $("#ingredients").val().trim();
+
+//URL set up using jquery param method and plugging in users ingredients into URL parameters
+var queryURL = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients';
+queryURL += '?' + $.param({
+    'fillIngredients': false,
+    'ingredients': userIngredients,
+    'limitLicense': false,
+    'number': 1,
+    'ranking': 1
+
+}); //fillIngredients=false&ingredients=apples%2Cflour%2Csugar&limitLicense=false&number=5&ranking=1'
 
 $.ajax({
     url: queryURL,
