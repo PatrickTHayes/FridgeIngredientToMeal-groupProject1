@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Food APP</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+    <!--jQuery-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+
+    <link rel="stylesheet" href="assets/css/style.css" type="text/css" />
+
+</head>
+
+<body>
+    <!--header that has some text nothing too special (for now)-->
+    <header class="page-header">
+        <div class="container">
+            <div class="row">
+                <div class="col s12">
+                    <h1 class="white-text">Header Content</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <!--middle section of the page containing main input n stuff-->
+    <div class="row">
+        <!--contains the search button and input fields-->
+        <div class="col s4" id="submitContent">
+            <div class="row">
+                <div class="col s2">
+                    <!--+ BUTTON code-->
+                    <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+                </div>
+                <div class="col s10">
+                    <!--this is where the text input goes-->
+                    <label for="ingredients">Ingredients</label>
+                    <input id="ingredients" type="text" class="validate">
+
+
+                </div>
+            </div>
+        </div>
+
+        <!--contains the recipes rendered from the search-->
+        <div class="col s4" id="recipesGoHere">
+        </div>
+        <!--contains the ingredients the user searched for -->
+        <div class="col s4" id="ingredientsGoHere">
+        </div>
+    </div>
+
+
+    <!--videos are output and displayed down here-->
+    <div class="row" id="videosGoHere">
+        <div class="carousel">
+
+            <a class="video-container" href="#one!"><iframe width="853" height="480" src="//www.youtube.com/embed/Q8TXgCzxEnw?rel=0" frameborder="0" allowfullscreen></iframe>
+      </a>
+            <a class="video-container" href="#one!"> <iframe width="853" height="480" src="//www.youtube.com/embed/Q8TXgCzxEnw?rel=0" frameborder="0" allowfullscreen></iframe>
+      </a>
+            <a class="video-container" href="#one!"> <iframe width="853" height="480" src="//www.youtube.com/embed/Q8TXgCzxEnw?rel=0" frameborder="0" allowfullscreen></iframe>
+      </a>
+            <a class="video-container" href="#one!"> <iframe width="853" height="480" src="//www.youtube.com/embed/Q8TXgCzxEnw?rel=0" frameborder="0" allowfullscreen></iframe>
+      </a>
+            <a class="video-container" href="#one!"> <iframe width="853" height="480" src="//www.youtube.com/embed/Q8TXgCzxEnw?rel=0" frameborder="0" allowfullscreen></iframe>
+      </a>
+        </div>
+    </div>
+
+
+
+    <script src="assets/javascript/javascript.js "></script>
+</body>
+
+</html>
