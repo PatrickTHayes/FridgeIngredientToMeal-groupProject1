@@ -7,7 +7,7 @@
 }
 
 #addIngrButton {
-    margin-top: 12px;
+    margin-top: 20px;
 }
 
 .deleteBox {
@@ -21,4 +21,6 @@
     margin-left: 5px;
 }
 
-
+#ingredients {
+    border-color: grey;
+}
