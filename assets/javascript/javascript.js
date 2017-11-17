@@ -18,7 +18,7 @@ $(function() {
         var request = gapi.client.youtube.search.list({
             part: "snippet",
             type: "video",
-            q: encodeURIComponent($("#ingredients").val()), //.replace(/%20/g, "+"),
+            q: encodeURIComponent($("#ingredients").val()), //I'm not sure if this is needed at the end. Testing shows it works with spaces without it added//.replace(/%20/g, "+"),
             maxResults: 3,
             order: "viewCount",
             publishedAfter: "2000-01-01T00:00:00Z"
@@ -31,8 +31,8 @@ $(function() {
                 console.log(item)
                 $("#videosGoHere").append(item.id.videoId + " " + item.snippet.title + "<br>")
                 var videoId = item.id.videoId;
-                var htmlVideo = "<a class='video-container' href='#one!'><iframe src='https://www.youtube.com/embed/" + videoId + "' width='560' height='315' frameborder='0' allowfullscreen></iframe>";
-                $(".carousel").append(htmlVideo);
+                var htmlVideo = "<iframe src='https://www.youtube.com/embed/" + videoId + "' width='560' height='315' frameborder='0' allowfullscreen></iframe>";
+                $("#videosGoHere").append(htmlVideo);
             })
         })
     })
@@ -45,5 +45,12 @@ function init() {
     })
 }
 $(document).ready(function() {
-    $('.carousel').carousel();
+    $('.carousel').carousel({
+        height: 500,
+        //padding: 100,
+        shift: 100,
+        // distance: +100,
+
+        indicator: true,
+    });
 });
