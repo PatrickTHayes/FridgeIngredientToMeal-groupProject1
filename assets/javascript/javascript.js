@@ -68,6 +68,7 @@ $(function() {
     //Replace indicator when we know which click event should trigger our function
     $(document.body).on("click", ".individualRecipes", function(e) {
         e.preventDefault();
+        console.log("On click recipe has fired")
         var queryTitle = $(this).attr("data-title");
         //prepare request
         var request = gapi.client.youtube.search.list({
@@ -159,14 +160,18 @@ $("#submitForRecipes").on('click', function(event) {
             //store the results here
             var title = results[i].title;
             var image = results[i].image;
+            var uriTitle = encodeURIComponent(title).replace(/%20/g, '+');
+            console.log(uriTitle);
             /*var singleRecipeDiv = $('<div class="individualRecipes">');
             singleRecipeDiv.attr('data-title', results[i].title);*/
 
             // Creating a paragraph tag with recipe title
-            var p = $("<p>").text("title: " + title);
+            var p = $("<p class='individualRecipes'>").text("title: " + title);
+            p.attr("data-title", uriTitle);
 
             // Creating an image tag
-            var image = "<img src=" + image + ">";
+            image = "<img src=" + image + " class='individualRecipes' data-title=" + uriTitle + ">";
+            //image.attr("data-title", title);
 
 
             console.log(image);
