@@ -67,21 +67,22 @@ var database = firebase.database();
 //test branch
 $(function() {
     //Replace indicator when we know which click event should trigger our function
-    $(".btn-large").on("click", function(e) {
+    $(document.body).on("click", ".individualRecipes", function(e) {
         e.preventDefault();
+        var queryTitle = $(this).attr("data-title");
         //prepare request
         var request = gapi.client.youtube.search.list({
             part: "snippet",
             type: "video",
             //change the hook here to whatever are ingredients
-            q: encodeURIComponent($("#ingredients").val()), //I'm not sure if this is needed at the end. Testing shows it works with spaces without it added//.replace(/%20/g, "+"),
+            q: queryTitle, //encodeURIComponent(queryTitle), //I'm not sure if this is needed at the end. Testing shows it works with spaces without it added//.replace(/%20/g, "+"),
             maxResults: 5,
             order: "viewCount",
             publishedAfter: "2015-01-01T00:00:00Z"
         })
         //execute request
         request.execute(function(response) {
-            console.log(response);
+            //console.log(response);
             var results = response.result;
             $.each(results.items, function(index, item) {
                 console.log(item)
@@ -110,24 +111,6 @@ function init() {
         //yt api is ready
     })
 }
-/*$(document).ready(function() {
-    $('.carousel').carousel({
-        //height: 500,
-        padding: 100,
-        shift: 50,
-        dist: -100,
-
-        indicators: true,
-    });
-});
-*/
-
-
-
-
-//Spoonacular API key I got from mashape is in the header property in the .param object
-
-//This variable captures the users ingredients from input field
 
 $("#submitForRecipes").on('click', function(event) {
 
@@ -164,11 +147,11 @@ $("#submitForRecipes").on('click', function(event) {
         headers: { 'X-Mashape-Key': 'xsChWYIjxDmshHomTXHaaWmn7DuTp1ernr7jsnEXl2Nrg8DGIE' },
         method: 'GET'
     }).done(function(response) {
-        console.log(response);
+        //console.log(response);
         var results = response;
         // Looping over every result item
         for (var i = 0; i < results.length; i++) {
-            console.log(results.length);
+            //console.log(results.length);
 
 
 
@@ -176,73 +159,77 @@ $("#submitForRecipes").on('click', function(event) {
             var title = results[i].title;
             var image = results[i].image;
             var id = results[i].id
+            var singleRecipeDiv = $('<div class="individualRecipes">');
+            singleRecipeDiv.attr('data-title', results[i].title);
+
             // Creating a paragraph tag with recipe title
             var p = $("<p>").text("title: " + title);
 
             // Creating an image tag
             var image = "<img src=" + image + ">";
 
-            console.log(image);
-            console.log(id);
+            //console.log(image);
+            //console.log(id);
+            singleRecipeDiv.append(p);
+            singleRecipeDiv.append(image);
             // append the paragraph and image we created to the "recipeDiv" div we created
-            recipeDiv.append(p);
-            recipeDiv.append(image);
+
+            //recipeDiv.append(image);
 
             // prepend the recipeDiv to the "#recipesGoHere" div in the HTML
-            $("#recipesGoHere").prepend(recipeDiv);
+            // $("#recipesGoHere").prepend(recipeDiv);
 
-            getRecipe(id, i);
+
+            var queryURL2 = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/' + id + '/information';
+            queryURL2 += '?' + $.param({
+                'includeNutrition': false
+            });
+            //console.log(queryURL2);
+            $.ajax({
+                url: queryURL2,
+                headers: { 'X-Mashape-Key': 'xsChWYIjxDmshHomTXHaaWmn7DuTp1ernr7jsnEXl2Nrg8DGIE' },
+                method: 'GET'
+
+            }).done(function(response2) {
+                //console.log(response2);
+                var results = response2;
+
+
+                var ul = $("<ul id='dropdown1>") //.text("ingredients: ");
+                // <!-- Dropdown Trigger -->
+                var dropdownList = $("<a>"); // class='dropdown-button btn' href='#' data-activates='dropdown1'>Drop Me!</a>
+                dropdownList.addClass("dropdown-button btn");
+                // dropdownList.addClass("btn");
+                dropdownList.attr('data-activates', "dropdown1");
+                //console.log(dropdownList);
+                dropdownList.text("ingredients");
+                //ul.addId("dropdown"+recipeNumber);
+                var ingredientNames = results.extendedIngredients
+                for (var j = 0; j < ingredientNames.length; j++) {
+
+                    var li = "<li>" + "-" + ingredientNames[j].name + "</li>";
+                    ul.append(li);
+                }
+
+
+                dropdownList.append(ul);
+                singleRecipeDiv.append(dropdownList);
+                console.log(singleRecipeDiv);
+                $("#recipesGoHere").append(singleRecipeDiv);
+                // prepend the recipeDiv to the "#recipesGoHere" div in the HTML
+                //$(recipeDiv).append(dropdownList);
+
+
+
+            });
+
+
+
 
         }
     })
 
-    function getRecipe(id, recipeNumber) {
-        var queryURL2 = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/' + id + '/information';
-        queryURL2 += '?' + $.param({
 
-
-            'includeNutrition': false
-
-        });
-        console.log(queryURL2);
-        $.ajax({
-            url: queryURL2,
-            headers: { 'X-Mashape-Key': 'xsChWYIjxDmshHomTXHaaWmn7DuTp1ernr7jsnEXl2Nrg8DGIE' },
-            method: 'GET'
-
-        }).done(function(response2) {
-            console.log(response2);
-            var results = response2;
-
-
-            var ul = $("<ul id='dropdown1>") //.text("ingredients: ");
-            // <!-- Dropdown Trigger -->
-            var dropdownList = $("<a>"); // class='dropdown-button btn' href='#' data-activates='dropdown1'>Drop Me!</a>
-            dropdownList.addClass("dropdown-button btn");
-            // dropdownList.addClass("btn");
-            dropdownList.attr('data-activates', "dropdown1");
-            console.log(dropdownList);
-            dropdownList.text("ingredients");
-            //ul.addId("dropdown"+recipeNumber);
-            var ingredientNames = results.extendedIngredients
-            for (var i = 0; i < ingredientNames.length; i++) {
-
-                var li = "<li>" + "-" + ingredientNames[i].name + "</li>";
-                ul.append(li);
-            }
-
-
-            dropdownList.append(ul);
-
-            // prepend the recipeDiv to the "#recipesGoHere" div in the HTML
-            $(recipeDiv).append(dropdownList);
-
-
-
-        });
-
-
-    }
 
 
 });
