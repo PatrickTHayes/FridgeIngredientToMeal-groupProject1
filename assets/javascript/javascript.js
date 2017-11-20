@@ -1,12 +1,20 @@
 //function checking firebase for ingredient list - if condition
 //if no list exists create empty array
 var ingrCount = 0
+var listOfIngredients = [];
+
+
 
 $("#addIngrButton").on('click', function() {
     var ingredientInput = $("#ingredients").val().trim();
     var ingredientSpace = $("<p>");
     ingredientSpace.attr("id", "ingredient-" + ingrCount);
     ingredientSpace.append(" " + ingredientInput);
+
+     listOfIngredients.push(ingredientInput);
+
+
+
 
     var ingrClose = $("<button>");
 
@@ -66,14 +74,18 @@ var database = firebase.database();
 
 $("#submitForRecipes").on('click', function(event) {
 
-
     event.preventDefault();
 
-    var userIngredients;
+    var userIngredients = "";
 
-    for (var i = 0; i < ingrCount; i++) {
-        userIngredients = userIngredients + $("#ingredient-" + i).val().trim();
+    for (var i = 0; i < listOfIngredients.length; i++) {
+    userIngredients += listOfIngredients[i];
+        if (i != listOfIngredients.length - 1) {
+             userIngredients += "+";
+        }
     }
+
+
 
     console.log(userIngredients);
     //URL set up using jquery param method and plugging in users ingredients into URL parameters
@@ -82,7 +94,7 @@ $("#submitForRecipes").on('click', function(event) {
         'fillIngredients': false,
         'ingredients': userIngredients,
         'limitLicense': false,
-        'number': 1,
+        'number': 5,
         'ranking': 1
 
     }); //fillIngredients=false&ingredients=apples%2Cflour%2Csugar&limitLicense=false&number=5&ranking=1'
@@ -92,8 +104,37 @@ $("#submitForRecipes").on('click', function(event) {
         headers: { 'X-Mashape-Key': 'xsChWYIjxDmshHomTXHaaWmn7DuTp1ernr7jsnEXl2Nrg8DGIE' },
         method: 'GET'
     }).done(function(response) {
-
         console.log(response);
+        var results = response;
+             // Looping over every result item
+                for (var i = 0; i < results.length; i++) {
+                    console.log(results.length);
+
+                        // Creating a div with the class "item"
+                        var recipeDiv = $("<div class='item'>");
+
+                        //store the results here
+                        var title = results[i].title;
+                        var image = results[i].image;
+
+                        // Creating a paragraph tag with recipe title
+                        var p = $("<p>").text("title: " + title);
+
+                        // Creating an image tag
+                        var image = "<img src=" + image + ">";
+
+                            console.log(image);
+                        // append the paragraph and image we created to the "recipeDiv" div we created
+                        recipeDiv.append(p);
+                        recipeDiv.append(image);
+
+                        // prepend the recipeDiv to the "#recipesGoHere" div in the HTML
+                        $("#recipesGoHere").prepend(recipeDiv);
+
+                }
     })
 
 });
+
+
+
