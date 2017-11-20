@@ -3,7 +3,6 @@
 var ingrCount = 0
 var listOfIngredients = [];
 // Creating a div with the class "item"
-var recipeDiv = $("<div class='item'>");
 
 
 $("#addIngrButton").on('click', function() {
@@ -134,7 +133,7 @@ $("#submitForRecipes").on('click', function(event) {
         // 'fillIngredients': true,
         'ingredients': userIngredients,
         'limitLicense': false,
-        'number': 1,
+        'number': 2,
         'ranking': 1,
         // 'ingredientsRequired': true
         'instructionsRequired': false
@@ -151,16 +150,17 @@ $("#submitForRecipes").on('click', function(event) {
         var results = response;
         // Looping over every result item
         for (var i = 0; i < results.length; i++) {
-            //console.log(results.length);
 
+            console.log(results.length);
 
-
+            var recipeDiv = $("<div class='item'>");
+            var id = results[i].id
+            getRecipe(id, i, recipeDiv);
             //store the results here
             var title = results[i].title;
             var image = results[i].image;
-            var id = results[i].id
-            var singleRecipeDiv = $('<div class="individualRecipes">');
-            singleRecipeDiv.attr('data-title', results[i].title);
+            /*var singleRecipeDiv = $('<div class="individualRecipes">');
+            singleRecipeDiv.attr('data-title', results[i].title);*/
 
             // Creating a paragraph tag with recipe title
             var p = $("<p>").text("title: " + title);
@@ -168,68 +168,81 @@ $("#submitForRecipes").on('click', function(event) {
             // Creating an image tag
             var image = "<img src=" + image + ">";
 
-            //console.log(image);
-            //console.log(id);
-            singleRecipeDiv.append(p);
-            singleRecipeDiv.append(image);
-            // append the paragraph and image we created to the "recipeDiv" div we created
 
-            //recipeDiv.append(image);
+            console.log(image);
+            console.log(id);
+            // append the paragraph and image we created to the "recipeDiv" div we created
+            recipeDiv.append(p);
+            recipeDiv.append(image);
 
             // prepend the recipeDiv to the "#recipesGoHere" div in the HTML
-            // $("#recipesGoHere").prepend(recipeDiv);
-
-
-            var queryURL2 = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/' + id + '/information';
-            queryURL2 += '?' + $.param({
-                'includeNutrition': false
-            });
-            //console.log(queryURL2);
-            $.ajax({
-                url: queryURL2,
-                headers: { 'X-Mashape-Key': 'xsChWYIjxDmshHomTXHaaWmn7DuTp1ernr7jsnEXl2Nrg8DGIE' },
-                method: 'GET'
-
-            }).done(function(response2) {
-                //console.log(response2);
-                var results = response2;
-
-
-                var ul = $("<ul id='dropdown1>") //.text("ingredients: ");
-                // <!-- Dropdown Trigger -->
-                var dropdownList = $("<a>"); // class='dropdown-button btn' href='#' data-activates='dropdown1'>Drop Me!</a>
-                dropdownList.addClass("dropdown-button btn");
-                // dropdownList.addClass("btn");
-                dropdownList.attr('data-activates', "dropdown1");
-                //console.log(dropdownList);
-                dropdownList.text("ingredients");
-                //ul.addId("dropdown"+recipeNumber);
-                var ingredientNames = results.extendedIngredients
-                for (var j = 0; j < ingredientNames.length; j++) {
-
-                    var li = "<li>" + "-" + ingredientNames[j].name + "</li>";
-                    ul.append(li);
-                }
-
-
-                dropdownList.append(ul);
-                singleRecipeDiv.append(dropdownList);
-                console.log(singleRecipeDiv);
-                $("#recipesGoHere").append(singleRecipeDiv);
-                // prepend the recipeDiv to the "#recipesGoHere" div in the HTML
-                //$(recipeDiv).append(dropdownList);
-
-
-
-            });
-
+            $("#recipesGoHere").prepend(recipeDiv);
 
 
 
         }
     })
 
+    function getRecipe(id, recipeNumber, recipeDiv) {
+        console.log(id)
+        var queryURL2 = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/' + id + '/information';
+        queryURL2 += '?' + $.param({
 
+
+            'includeNutrition': false
+
+        });
+        console.log(queryURL2);
+        $.ajax({
+            url: queryURL2,
+            headers: { 'X-Mashape-Key': 'xsChWYIjxDmshHomTXHaaWmn7DuTp1ernr7jsnEXl2Nrg8DGIE' },
+            method: 'GET'
+
+        }).done(function(response2) {
+            console.log(response2);
+
+
+            var results = response2;
+
+
+            var ul = $("<ul class='dropdown-content' id='dropdown" + recipeNumber + "'>") //.text("ingredients: ");
+            // <!-- Dropdown Trigger -->
+            var dropdownList = $("<a>"); // class='dropdown-button btn' href='#' data-activates='dropdown1'>Drop Me!</a>
+            dropdownList.addClass("dropdown-button btn");
+            // dropdownList.addClass("btn");
+            dropdownList.attr('data-activates', "dropdown" + recipeNumber);
+            console.log(dropdownList);
+            dropdownList.text("ingredients");
+            //ul.addId("dropdown"+recipeNumber);
+            var ingredientNames = results.extendedIngredients
+            for (var i = 0; i < ingredientNames.length; i++) {
+
+                var li = "<li>" + "-" + ingredientNames[i].name + "</li>";
+                ul.append(li);
+            }
+
+
+            dropdownList.append(ul);
+
+
+            // prepend the recipeDiv to the "#recipesGoHere" div in the HTML
+            $(recipeDiv).append(dropdownList);
+            $('.dropdown-button').dropdown({
+                inDuration: 300,
+                outDuration: 225,
+                constrainWidth: false, // Does not change width of dropdown to that of the activator
+                hover: false, // Activate on hover
+                gutter: 0, // Spacing from edge
+                belowOrigin: false, // Displays dropdown below the button
+                alignment: 'left', // Displays dropdown with edge aligned to the left of button
+                stopPropagation: false // Stops event propagation
+            });
+
+
+        });
+
+
+    }
 
 
 });
