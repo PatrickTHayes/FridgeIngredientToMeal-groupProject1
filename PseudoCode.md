@@ -9,7 +9,6 @@ setting up the user interface
         -current ingredient list
         -column that holds potential recipe list
 
-
     -Create another row holds video area (collapsable panels?)
         Area is populated when a recipe is selected
     -Some area for messages that can alert user of bad input.
@@ -41,9 +40,5 @@ Document onclick function - recipeChoice
     Takes that title and throws it into our into the next AJAX query url
     Youtube api sends back embed links for top 6 results
     should show two videos at a time with a button to show the next two results
-
-
-
-
 
 ID lists

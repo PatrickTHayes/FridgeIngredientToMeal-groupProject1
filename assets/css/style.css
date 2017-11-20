@@ -1,7 +1,3 @@
-.active {
-    height: 500px;
-}
-
 .carousel-item {
     height: 500px !important;
     width: 500px !important;
@@ -9,4 +5,53 @@
 
 .carousel {
     height: 600px !important;
+}
+
+.page-header {
+    background: #1e88e5;
+}
+
+.white-text {
+    color: black !important;
+}
+
+#addIngrButton {
+    margin-top: 8px;
+}
+
+.deleteBox {
+    background: #adafc6;
+    width: 27px;
+    height: 27px;
+}
+
+#submitContent {
+    border-style: inset;
+    margin-left: 5px;
+}
+
+#ingredients {
+    border-bottom: 1px solid #9e9e9e;
+}
+
+#ingredients:focus:not([readonly]) {
+    border-bottom: 1px solid #1e88e5;
+    box-shadow: 0 1px 0 0 #1e88e5;
+}
+
+
+.item {
+    display: inline-block;
+    padding: 30px;
+
+}
+
+img {
+    height: 200px;
+    width: 250px;
+}
+
+.active {
+    color: #1e88e5 !important;
+    height: 500px;
 }
