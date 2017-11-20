@@ -64,13 +64,53 @@ var config = {
 firebase.initializeApp(config);
 var database = firebase.database();
 //test branch
+$(function() {
+    //Replace indicator when we know which click event should trigger our function
+    $(document.body).on("click", ".individualRecipes", function(e) {
+        e.preventDefault();
+        console.log("On click recipe has fired")
+        var queryTitle = $(this).attr("data-title");
+        //prepare request
+        var request = gapi.client.youtube.search.list({
+            part: "snippet",
+            type: "video",
+            //change the hook here to whatever are ingredients
+            q: queryTitle, //encodeURIComponent(queryTitle), //I'm not sure if this is needed at the end. Testing shows it works with spaces without it added//.replace(/%20/g, "+"),
+            maxResults: 5,
+            order: "viewCount",
+            publishedAfter: "2015-01-01T00:00:00Z"
+        })
+        //execute request
+        request.execute(function(response) {
+            //console.log(response);
+            var results = response.result;
+            $.each(results.items, function(index, item) {
+                console.log(item)
+                //$("#videosGoHere").append(item.id.videoId + " " + item.snippet.title + "<br>")
+                var videoId = item.id.videoId;
+                var htmlVideo = "<a class='carousel-item' href='#one!'><div class='video-container'><iframe src='https://www.youtube.com/embed/" + videoId + "' width='560' height='315' frameborder='0' allowfullscreen></iframe></div></a>";
+                $(".carousel").append(htmlVideo);
+            })
+            $(document).ready(function() {
+                $('.carousel').carousel({
+                    //height: 500,
+                    padding: 100,
+                    shift: 50,
+                    dist: -100,
 
+                    indicators: true,
+                });
+            });
+        })
+    })
+})
 
-
-
-//Spoonacular API key I got from mashape is in the header property in the .param object
-
-//This variable captures the users ingredients from input field
+function init() {
+    gapi.client.setApiKey("AIzaSyCrDLUDgfk0UO5izg05bh7tU1dIjbBmBA8");
+    gapi.client.load("youtube", "v3", function() {
+        //yt api is ready
+    })
+}
 
 $("#submitForRecipes").on('click', function(event) {
 
@@ -107,28 +147,32 @@ $("#submitForRecipes").on('click', function(event) {
         headers: { 'X-Mashape-Key': 'xsChWYIjxDmshHomTXHaaWmn7DuTp1ernr7jsnEXl2Nrg8DGIE' },
         method: 'GET'
     }).done(function(response) {
-        console.log(response);
+        //console.log(response);
         var results = response;
         // Looping over every result item
         for (var i = 0; i < results.length; i++) {
+
             console.log(results.length);
 
             var recipeDiv = $("<div class='item'>");
-             var id = results[i].id
+            var id = results[i].id
             getRecipe(id, i, recipeDiv);
-
             //store the results here
             var title = results[i].title;
             var image = results[i].image;
-
-
-
+            var uriTitle = encodeURIComponent(title).replace(/%20/g, '+');
+            console.log(uriTitle);
+            /*var singleRecipeDiv = $('<div class="individualRecipes">');
+            singleRecipeDiv.attr('data-title', results[i].title);*/
 
             // Creating a paragraph tag with recipe title
-            var p = $("<p>").text("title: " + title);
+            var p = $("<p class='individualRecipes'>").text("title: " + title);
+            p.attr("data-title", uriTitle);
 
             // Creating an image tag
-            var image = "<img src=" + image + ">";
+            image = "<img src=" + image + " class='individualRecipes' data-title=" + uriTitle + ">";
+            //image.attr("data-title", title);
+
 
             console.log(image);
             console.log(id);
@@ -163,17 +207,15 @@ $("#submitForRecipes").on('click', function(event) {
             console.log(response2);
 
 
-
-
             var results = response2;
 
 
-            var ul = $("<ul class='dropdown-content' id='dropdown"+recipeNumber+"'>") //.text("ingredients: ");
+            var ul = $("<ul class='dropdown-content' id='dropdown" + recipeNumber + "'>") //.text("ingredients: ");
             // <!-- Dropdown Trigger -->
             var dropdownList = $("<a>"); // class='dropdown-button btn' href='#' data-activates='dropdown1'>Drop Me!</a>
             dropdownList.addClass("dropdown-button btn");
             // dropdownList.addClass("btn");
-            dropdownList.attr('data-activates', "dropdown"+recipeNumber);
+            dropdownList.attr('data-activates', "dropdown" + recipeNumber);
             console.log(dropdownList);
             dropdownList.text("ingredients");
             //ul.addId("dropdown"+recipeNumber);
@@ -190,7 +232,7 @@ $("#submitForRecipes").on('click', function(event) {
 
             // prepend the recipeDiv to the "#recipesGoHere" div in the HTML
             $(recipeDiv).append(dropdownList);
-             $('.dropdown-button').dropdown({
+            $('.dropdown-button').dropdown({
                 inDuration: 300,
                 outDuration: 225,
                 constrainWidth: false, // Does not change width of dropdown to that of the activator
@@ -200,8 +242,6 @@ $("#submitForRecipes").on('click', function(event) {
                 alignment: 'left', // Displays dropdown with edge aligned to the left of button
                 stopPropagation: false // Stops event propagation
             });
-
-
 
 
         });
