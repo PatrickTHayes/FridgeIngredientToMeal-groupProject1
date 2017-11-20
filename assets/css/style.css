@@ -7,7 +7,7 @@
 }
 
 #addIngrButton {
-    margin-top: 12px;
+    margin-top: 8px;
 }
 
 .deleteBox {
@@ -21,14 +21,27 @@
     margin-left: 5px;
 }
 
+#ingredients {
+    border-bottom: 1px solid #9e9e9e;
+}
+
+#ingredients:focus:not([readonly]) {
+    border-bottom: 1px solid #1e88e5;
+    box-shadow: 0 1px 0 0 #1e88e5;
+}
+
 
 .item {
-	display: inline-block;
-	padding: 30px;
+    display: inline-block;
+    padding: 30px;
 
 }
 
 img {
-	height: 200px;
-	width: 250px;
+    height: 200px;
+    width: 250px;
+}
+
+.active {
+    color: #1e88e5 !important;
 }
