@@ -69,10 +69,10 @@ $("#submitForRecipes").on('click', function(event) {
 
     event.preventDefault();
 
-    var userIngredients;
+    var userIngredients = [];
 
     for (var i = 0; i < ingrCount; i++) {
-        userIngredients = userIngredients + $("#ingredient-" + i).val().trim();
+        userIngredients = userIngredients + $("#ingredient-" + i).val();
     }
 
     console.log(userIngredients);
