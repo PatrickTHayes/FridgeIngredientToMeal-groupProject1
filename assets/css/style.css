@@ -28,6 +28,7 @@
 #submitContent {
     border-style: inset;
     margin-left: 5px;
+    margin-right: 50px;
     background-color: #DBE3F6;
 }
 
@@ -44,7 +45,8 @@
 .item {
     display: inline-block;
     padding: 30px;
-
+    max-width: 280px;
+    margin-right: 20px
 }
 
 img {
@@ -55,4 +57,19 @@ img {
 .active {
     color: #1e88e5 !important;
     height: 500px;
+}
+
+/*ingredient button and the content*/
+
+.dropdown-content {
+    max-height: 200px;
+    width: 220px;
+    text-align: center;
+}
+
+.dropdown-button {
+    max-height: 300px;
+    width: 250px;
+    text-align: center;
+
 }
