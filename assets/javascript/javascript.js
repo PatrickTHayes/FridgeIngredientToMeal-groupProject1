@@ -10,9 +10,9 @@ $("#addIngrButton").on('click', function() {
     var ingredientSpace = $("<p>");
     ingredientSpace.attr("id", "ingredient-" + ingrCount);
     ingredientSpace.append(" " + ingredientInput);
-
-    listOfIngredients.push(ingredientInput);
-
+    if (ingredientInput !== '') { //make sure ingredient exists, if so then push it to array
+        listOfIngredients.push(ingredientInput);
+    }
 
 
 
@@ -154,6 +154,13 @@ $("#submitForRecipes").on('click', function(event) {
     event.preventDefault();
 
     var userIngredients = "";
+    if (listOfIngredients.length === 0) { //if our ingredient list is empty, ask user to put some in
+        $("#ingredientsLabel").html("<span style='color:red'>'Recipes require Ingredients!!!</span>");
+        console.log("its firing");
+        setTimeout(function() {
+            $("#ingredientsLabel").html("Ingredients"); //return to normal
+        }, 2500)
+    }
 
     for (var i = 0; i < listOfIngredients.length; i++) {
         userIngredients += listOfIngredients[i];
