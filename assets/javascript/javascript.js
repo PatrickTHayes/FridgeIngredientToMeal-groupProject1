@@ -22,26 +22,36 @@ $("#addIngrButton").on('click', function() {
     ingrClose.addClass("deleteBox");
     ingrClose.append("✖︎");
 
-    // Append the button to the to do item
-    ingredientSpace = ingredientSpace.prepend(ingrClose);
+    if (ingredientInput != '') { // make sure input isn't empty
+        // Append the button to the to do item
+        ingredientSpace = ingredientSpace.prepend(ingrClose);
 
-    // Add the button and ingredient to the div
-    $("#listOfIngr").append(ingredientSpace);
+        // Add the button and ingredient to the div
+        $("#listOfIngr").append(ingredientSpace);
 
-    // Clear the textbox when done
-    $("#ingredients").val("");
+        // Clear the textbox when done
+        $("#ingredients").val("");
 
-    // Add to the ingredient list
-    ingrCount++;
+        // Add to the ingredient list
+        ingrCount++;
 
+    }
+    else { // if empty input display message in ingredient box for a short time
+        $("#ingredientsLabel").html('<span style="color:red">"Please input an ingredient!"</span>'); //change color
+        setTimeout(function() {
+            $("#ingredientsLabel").html("Ingredients"); //return to normal
+        }, 2500)
+    }
 });
 
+//Call add ingredient function if user hits enter
 $("#ingredients").keyup(function(event) {
     if (event.keyCode === 13) {
         $("#addIngrButton").click();
     }
 });
 
+//Function to delete ingredients
 $(document.body).on("click", ".deleteBox", function() {
 
     // Get the number of the button from its data attribute and hold in a variable .
@@ -50,8 +60,11 @@ $(document.body).on("click", ".deleteBox", function() {
     // Select and Remove the specific <p> element that previously held the to do item number.
     $("#ingredient-" + ingrNumber).remove();
 
+    //delete the item from the array
+    listOfIngredients.splice(this, 1);
 });
 
+//Firebase config
 var config = {
     apiKey: "AIzaSyB3lbSA5Y4e4StvaYtm5sno0pDad-90NeM",
     authDomain: "groupproject1-fridgetomeal.firebaseapp.com",
@@ -63,9 +76,8 @@ var config = {
 
 firebase.initializeApp(config);
 var database = firebase.database();
-//test branch
-$(function() { //Function populates our videosGoHere division when called by click event.
-    //Replace indicator when we know which click event should trigger our function
+$(function() {
+    //Function populates our videosGoHere division when called by click event.
     $(document.body).on("click", ".individualRecipes", function(e) {
         e.preventDefault();
         $("#videosGoHere").html(""); //clear out old carousel videos if present
@@ -115,7 +127,7 @@ function carouselInit() {
         shift: 50,
         dist: -100,
 
-        indicators: true,
+        //indicators: true, //uncomment if you want indicators, although you will have to stylize them to show.
     });
 }
 
@@ -177,7 +189,17 @@ $("#submitForRecipes").on('click', function(event) {
             var title = results[i].title;
             title = "how to make " + title; //add how to make to recipe title to bring up more relevant results
             var image = results[i].image;
-            var uriTitle = encodeURIComponent(title).replace(/%20/g, '+');
+            //Validation logic of title
+            var findHashtag = title.search("#"); //find if title has a hashtag.
+            //Hashtags usually have multiple words strung together without spaces, bringing search results to 0.
+            //if a title does have a hashtag, we dont want to display that title.
+            if (findHashtag !== -1) {
+                // if hash tag exists we dont want  to execute rest of code, skip this iteration
+                continue;
+            }
+            var uriTitle = title.replace(/\(.+?\)/g, ''); //replace parentheses with +
+            uriTitle = uriTitle.replace(/[^a-z0-9+]+/gi, ' '); //replace all non  a-z 0-9 with a space
+            uriTitle = encodeURIComponent(uriTitle).replace(/%20/g, '+'); //encode to uri and change encoded spaces to +
             console.log(uriTitle);
             /*var singleRecipeDiv = $('<div class="individualRecipes">');
             singleRecipeDiv.attr('data-title', results[i].title);*/
