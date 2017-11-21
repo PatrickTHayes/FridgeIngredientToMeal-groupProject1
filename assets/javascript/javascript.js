@@ -115,7 +115,7 @@ function carouselInit() {
         shift: 50,
         dist: -100,
 
-        indicators: true,
+        //indicators: true, //uncomment if you want indicators, although you will have to stylize them to show.
     });
 }
 
