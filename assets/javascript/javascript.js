@@ -35,8 +35,13 @@ $("#addIngrButton").on('click', function() {
         // Add to the ingredient list
         ingrCount++;
 
-    }; //else {} // if we want to display to user that
-
+    }
+    else { // if empty input display message in ingredient box for a short time
+        $("#ingredientsLabel").html('<span style="color:red">"Please input an ingredient!"</span>'); //change color
+        setTimeout(function() {
+            $("#ingredientsLabel").html("Ingredients"); //return to normal
+        }, 2500)
+    }
 });
 
 //Call add ingredient function if user hits enter
