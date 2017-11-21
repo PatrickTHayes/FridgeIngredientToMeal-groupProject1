@@ -10,9 +10,9 @@ $("#addIngrButton").on('click', function() {
     var ingredientSpace = $("<p>");
     ingredientSpace.attr("id", "ingredient-" + ingrCount);
     ingredientSpace.append(" " + ingredientInput);
-
-    listOfIngredients.push(ingredientInput);
-
+    if (ingredientInput !== '') { //make sure ingredient exists, if so then push it to array
+        listOfIngredients.push(ingredientInput);
+    }
 
 
 
@@ -63,6 +63,16 @@ $(document.body).on("click", ".deleteBox", function() {
     //delete the item from the array
     listOfIngredients.splice(this, 1);
 });
+
+$(document.body).on("click", "#clearAllIngredients", function() {
+
+
+    $("#listOfIngr").html(""); //Clear text field
+
+    //clear array
+    listOfIngredients = [];
+});
+
 
 //Firebase config
 var config = {
@@ -144,6 +154,13 @@ $("#submitForRecipes").on('click', function(event) {
     event.preventDefault();
 
     var userIngredients = "";
+    if (listOfIngredients.length === 0) { //if our ingredient list is empty, ask user to put some in
+        $("#ingredientsLabel").html("<span style='color:red'>'Recipes require Ingredients!!!</span>");
+        console.log("its firing");
+        setTimeout(function() {
+            $("#ingredientsLabel").html("Ingredients"); //return to normal
+        }, 2500)
+    }
 
     for (var i = 0; i < listOfIngredients.length; i++) {
         userIngredients += listOfIngredients[i];
@@ -224,16 +241,16 @@ $("#submitForRecipes").on('click', function(event) {
 
 
             // when you hover over the image it changes opacity
-               $('img').hover(function() {
+            $('img').hover(function() {
 
-                   $(this).css('opacity', 0.5);
+                    $(this).css('opacity', 0.5);
                     $(this).text("test");
                 }, function() {
                     $(this).css('opacity', 1);
                 }
 
 
-           );
+            );
 
 
         }
