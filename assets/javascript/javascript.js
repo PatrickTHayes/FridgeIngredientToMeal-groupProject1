@@ -149,7 +149,7 @@ $("#submitForRecipes").on('click', function(event) {
         // 'fillIngredients': true,
         'ingredients': userIngredients,
         'limitLicense': false,
-        'number': 2,
+        'number': 6,
         'ranking': 1,
         // 'ingredientsRequired': true
         'instructionsRequired': false
@@ -253,9 +253,9 @@ $("#submitForRecipes").on('click', function(event) {
                 inDuration: 300,
                 outDuration: 225,
                 constrainWidth: false, // Does not change width of dropdown to that of the activator
-                hover: false, // Activate on hover
+                hover: true, // Activate on hover
                 gutter: 0, // Spacing from edge
-                belowOrigin: false, // Displays dropdown below the button
+                belowOrigin: true, // Displays dropdown below the button
                 alignment: 'left', // Displays dropdown with edge aligned to the left of button
                 stopPropagation: false // Stops event propagation
             });
