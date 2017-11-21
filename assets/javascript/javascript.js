@@ -22,17 +22,20 @@ $("#addIngrButton").on('click', function() {
     ingrClose.addClass("deleteBox");
     ingrClose.append("✖︎");
 
-    // Append the button to the to do item
-    ingredientSpace = ingredientSpace.prepend(ingrClose);
+    if (ingredientInput != '') {
+        // Append the button to the to do item
+        ingredientSpace = ingredientSpace.prepend(ingrClose);
 
-    // Add the button and ingredient to the div
-    $("#listOfIngr").append(ingredientSpace);
+        // Add the button and ingredient to the div
+        $("#listOfIngr").append(ingredientSpace);
 
-    // Clear the textbox when done
-    $("#ingredients").val("");
+        // Clear the textbox when done
+        $("#ingredients").val("");
 
-    // Add to the ingredient list
-    ingrCount++;
+        // Add to the ingredient list
+        ingrCount++;
+
+    };
 
 });
 
