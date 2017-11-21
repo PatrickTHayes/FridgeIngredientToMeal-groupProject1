@@ -22,7 +22,7 @@ body {
 }
 
 #addIngrButton {
-    margin-top: 8px;
+    margin-top: 20px;
 }
 
 .deleteBox {
@@ -70,6 +70,7 @@ img {
     background: #BFC5D3;
     text-align: center;
 }
+
 /*ingredient button and the content*/
 
 .dropdown-content {
