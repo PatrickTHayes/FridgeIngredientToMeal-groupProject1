@@ -1,40 +1,34 @@
 //function checking firebase for ingredient list - if condition
+
 //if no list exists create empty array
 var ingrCount = 0
 var listOfIngredients = [];
-// Creating a div with the class "item"
-
 
 $("#addIngrButton").on('click', function() {
-    var ingredientInput = $("#ingredients").val().trim();
-    var ingredientSpace = $("<p>");
-    ingredientSpace.attr("id", "ingredient-" + ingrCount);
-    ingredientSpace.append(" " + ingredientInput);
-    if (ingredientInput !== '') { //make sure ingredient exists, if so then push it to array
+    var ingredientInput = $("#ingredients").val().trim(); //grab and trim ingrendient text from user, store as var
+    var ingredientSpace = $("<p>"); // create p element
+    ingredientSpace.attr("id", "ingredient-" + ingrCount); //create dynamic id
+    ingredientSpace.append(" " + ingredientInput); //place user input in p element
+
+    //make sure ingredient exists, if so then push it to array
+    if (ingredientInput !== '') {
         listOfIngredients.push(ingredientInput);
     }
-
-
-
+    //create button element, give it an attr and class, give it an X for the button
     var ingrClose = $("<button>");
-
     ingrClose.attr("data-ingr", ingrCount);
     ingrClose.addClass("deleteBox");
     ingrClose.append("✖︎");
 
-    if (ingredientInput != '') { // make sure input isn't empty
+    if (ingredientInput != '') { // make sure input isn't empty before running
         // Append the button to the to do item
         ingredientSpace = ingredientSpace.prepend(ingrClose);
-
         // Add the button and ingredient to the div
         $("#listOfIngr").append(ingredientSpace);
-
         // Clear the textbox when done
         $("#ingredients").val("");
-
         // Add to the ingredient list
         ingrCount++;
-
     }
     else { // if empty input display message in ingredient box for a short time
         $("#ingredientsLabel").html('<span style="color:red">"Please input an ingredient!"</span>'); //change color
@@ -51,26 +45,22 @@ $("#ingredients").keyup(function(event) {
     }
 });
 
-//Function to delete ingredients
-$(document.body).on("click", ".deleteBox", function() {
 
+//Function to delete ingredients when dynamic buttons are clicked
+$(document.body).on("click", ".deleteBox", function() {
     // Get the number of the button from its data attribute and hold in a variable .
     var ingrNumber = $(this).attr("data-ingr");
-
     // Select and Remove the specific <p> element that previously held the to do item number.
     $("#ingredient-" + ingrNumber).remove();
-
     //delete the item from the array
     listOfIngredients.splice(this, 1);
 });
 
+
+//function to clear ingredient list
 $(document.body).on("click", "#clearAllIngredients", function() {
-
-
     $("#listOfIngr").html(""); //Clear text field
-
-    //clear array
-    listOfIngredients = [];
+    listOfIngredients = []; //clear array
 });
 
 
@@ -111,12 +101,10 @@ $(function() {
             setTimeout(function() { //wait short delay before execute request so jQuery finds newly created carousel element
                 var results = response.result;
                 $.each(results.items, function(index, item) {
-                    console.log(item)
                     //$("#videosGoHere").append(item.id.videoId + " " + item.snippet.title + "<br>")
                     var videoId = item.id.videoId;
                     var htmlVideo = "<a class='carousel-item' href='#one!'><div class='video-container'><iframe src='https://www.youtube.com/embed/" + videoId + "' width='560' height='315' frameborder='0' allowfullscreen></iframe></div></a>";
                     $(".carousel").append(htmlVideo);
-                    console.log(htmlVideo)
                     //$(".carousel2").append(htmlVideo);
                 })
             }, 50)
@@ -156,7 +144,6 @@ $("#submitForRecipes").on('click', function(event) {
     var userIngredients = "";
     if (listOfIngredients.length === 0) { //if our ingredient list is empty, ask user to put some in
         $("#ingredientsLabel").html("<span style='color:red'>'Recipes require Ingredients!!!</span>");
-        console.log("its firing");
         setTimeout(function() {
             $("#ingredientsLabel").html("Ingredients"); //return to normal
         }, 2500)
@@ -192,12 +179,10 @@ $("#submitForRecipes").on('click', function(event) {
         method: 'GET'
     }).done(function(response) {
         $("#recipesGoHere").html(""); //clear out recipes div when called
-        //console.log(response);
         var results = response;
         // Looping over every result item
         for (var i = 0; i < results.length; i++) {
 
-            console.log(results.length);
 
             var recipeDiv = $("<div class='item'>");
             var id = results[i].id
@@ -217,9 +202,6 @@ $("#submitForRecipes").on('click', function(event) {
             var uriTitle = title.replace(/\(.+?\)/g, ''); //replace parentheses with +
             uriTitle = uriTitle.replace(/[^a-z0-9+]+/gi, ' '); //replace all non  a-z 0-9 with a space
             uriTitle = encodeURIComponent(uriTitle).replace(/%20/g, '+'); //encode to uri and change encoded spaces to +
-            console.log(uriTitle);
-            /*var singleRecipeDiv = $('<div class="individualRecipes">');
-            singleRecipeDiv.attr('data-title', results[i].title);*/
 
             // Creating a paragraph tag with recipe title
             var p = $("<p class='individualRecipes'>").text("title: " + title);
@@ -227,11 +209,6 @@ $("#submitForRecipes").on('click', function(event) {
 
             // Creating an image tag
             image = "<img src=" + image + " class='individualRecipes' data-title=" + uriTitle + ">";
-            //image.attr("data-title", title);
-
-
-            console.log(image);
-            console.log(id);
             // append the paragraph and image we created to the "recipeDiv" div we created
             recipeDiv.append(p);
             recipeDiv.append(image);
@@ -257,7 +234,6 @@ $("#submitForRecipes").on('click', function(event) {
     })
 
     function getRecipe(id, recipeNumber, recipeDiv) {
-        console.log(id)
         var queryURL2 = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/' + id + '/information';
         queryURL2 += '?' + $.param({
 
@@ -265,7 +241,6 @@ $("#submitForRecipes").on('click', function(event) {
             'includeNutrition': false
 
         });
-        console.log(queryURL2);
         $.ajax({
             url: queryURL2,
             headers: { 'X-Mashape-Key': 'xsChWYIjxDmshHomTXHaaWmn7DuTp1ernr7jsnEXl2Nrg8DGIE' },
@@ -284,7 +259,6 @@ $("#submitForRecipes").on('click', function(event) {
             dropdownList.addClass("dropdown-button btn");
             // dropdownList.addClass("btn");
             dropdownList.attr('data-activates', "dropdown" + recipeNumber);
-            console.log(dropdownList);
             dropdownList.text("ingredients");
             //ul.addId("dropdown"+recipeNumber);
             var ingredientNames = results.extendedIngredients
