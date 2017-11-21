@@ -64,6 +64,16 @@ $(document.body).on("click", ".deleteBox", function() {
     listOfIngredients.splice(this, 1);
 });
 
+$(document.body).on("click", "#clearAllIngredients", function() {
+
+
+    $("#listOfIngr").html(""); //Clear text field
+
+    //clear array
+    listOfIngredients = [];
+});
+
+
 //Firebase config
 var config = {
     apiKey: "AIzaSyB3lbSA5Y4e4StvaYtm5sno0pDad-90NeM",
@@ -224,16 +234,16 @@ $("#submitForRecipes").on('click', function(event) {
 
 
             // when you hover over the image it changes opacity
-               $('img').hover(function() {
+            $('img').hover(function() {
 
-                   $(this).css('opacity', 0.5);
+                    $(this).css('opacity', 0.5);
                     $(this).text("test");
                 }, function() {
                     $(this).css('opacity', 1);
                 }
 
 
-           );
+            );
 
 
         }
