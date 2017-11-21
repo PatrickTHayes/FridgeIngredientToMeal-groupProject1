@@ -1,3 +1,7 @@
+body {
+    background-image: url("../images/brickwall.png");
+}
+
 .carousel-item {
     height: 282px !important;
     width: 500px !important;
@@ -9,6 +13,8 @@
 
 .page-header {
     background: #1e88e5;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .white-text {
@@ -28,6 +34,7 @@
 #submitContent {
     border-style: inset;
     margin-left: 5px;
+    background: white;
     margin-right: 50px;
     background-color: #DBE3F6;
 }
@@ -59,6 +66,10 @@ img {
     height: 500px;
 }
 
+.page-footer {
+    background: #BFC5D3;
+    text-align: center;
+}
 /*ingredient button and the content*/
 
 .dropdown-content {
