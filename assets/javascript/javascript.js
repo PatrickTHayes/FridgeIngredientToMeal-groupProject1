@@ -151,7 +151,7 @@ $("#submitForRecipes").on('click', function(event) {
         // 'fillIngredients': true,
         'ingredients': userIngredients,
         'limitLicense': false,
-        'number': 2,
+        'number': 6,
         'ranking': 1,
         // 'ingredientsRequired': true
         'instructionsRequired': false
@@ -179,7 +179,17 @@ $("#submitForRecipes").on('click', function(event) {
             var title = results[i].title;
             title = "how to make " + title; //add how to make to recipe title to bring up more relevant results
             var image = results[i].image;
-            var uriTitle = encodeURIComponent(title).replace(/%20/g, '+');
+            //Validation logic of title
+            var findHashtag = title.search("#"); //find if title has a hashtag.
+            //Hashtags usually have multiple words strung together without spaces, bringing search results to 0.
+            //if a title does have a hashtag, we dont want to display that title.
+            if (findHashtag !== -1) {
+                // if hash tag exists we dont want  to execute rest of code, skip this iteration
+                continue;
+            }
+            var uriTitle = title.replace(/\(.+?\)/g, ''); //replace parentheses with +
+            uriTitle = uriTitle.replace(/[^a-z0-9+]+/gi, ' '); //replace all non  a-z 0-9 with a space
+            uriTitle = encodeURIComponent(uriTitle).replace(/%20/g, '+'); //encode to uri and change encoded spaces to +
             console.log(uriTitle);
             /*var singleRecipeDiv = $('<div class="individualRecipes">');
             singleRecipeDiv.attr('data-title', results[i].title);*/
