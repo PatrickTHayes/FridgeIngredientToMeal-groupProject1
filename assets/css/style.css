@@ -3,12 +3,12 @@ body {
 }
 
 .carousel-item {
-    height: 500px !important;
+    height: 282px !important;
     width: 500px !important;
 }
 
 .carousel {
-    height: 600px !important;
+    height: 282px !important;
 }
 
 .page-header {
@@ -35,6 +35,8 @@ body {
     border-style: inset;
     margin-left: 5px;
     background: white;
+    margin-right: 50px;
+    background-color: #DBE3F6;
 }
 
 #ingredients {
@@ -50,7 +52,8 @@ body {
 .item {
     display: inline-block;
     padding: 30px;
-
+    max-width: 280px;
+    margin-right: 20px
 }
 
 img {
@@ -66,4 +69,18 @@ img {
 .page-footer {
     background: #BFC5D3;
     text-align: center;
+}
+/*ingredient button and the content*/
+
+.dropdown-content {
+    max-height: 200px;
+    width: 220px;
+    text-align: center;
+}
+
+.dropdown-button {
+    max-height: 300px;
+    width: 250px;
+    text-align: center;
+
 }
