@@ -50,6 +50,8 @@ $(document.body).on("click", ".deleteBox", function() {
     // Select and Remove the specific <p> element that previously held the to do item number.
     $("#ingredient-" + ingrNumber).remove();
 
+    //delete the item from the array
+    listOfIngredients.splice(this, 1);
 });
 
 var config = {
