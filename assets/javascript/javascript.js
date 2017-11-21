@@ -80,6 +80,7 @@ $(function() {
     //Function populates our videosGoHere division when called by click event.
     $(document.body).on("click", ".individualRecipes", function(e) {
         e.preventDefault();
+
         $("#videosGoHere").html(""); //clear out old carousel videos if present
         var carousel = $("<div class='carousel'>"); //create brand new carousel div element
         $("#videosGoHere").append(carousel); // place in videosGoHere div
@@ -209,31 +210,68 @@ $("#submitForRecipes").on('click', function(event) {
             p.attr("data-title", uriTitle);
 
             // Creating an image tag
-            image = "<img src=" + image + " class='individualRecipes' data-title=" + uriTitle + ">";
+            image = "<div class= 'dynamicImage'><img src=" + image + " class='individualRecipes' data-title=" + uriTitle + "> <p class='hoverText'>Click on a recipe to search for a video</p> </div>";
             //image.attr("data-title", title);
 
+            // var message = $("<p class='.message'>").text("click for information");
 
             console.log(image);
             console.log(id);
             // append the paragraph and image we created to the "recipeDiv" div we created
             recipeDiv.append(p);
             recipeDiv.append(image);
+            // recipeDiv.append(message);
+
 
             // prepend the recipeDiv to the "#recipesGoHere" div in the HTML
             $("#recipesGoHere").prepend(recipeDiv);
 
 
             // when you hover over the image it changes opacity
-               $('img').hover(function() {
+        //       $('img').hover(function() {
 
-                   $(this).css('opacity', 0.5);
-                    $(this).text("test");
-                }, function() {
-                    $(this).css('opacity', 1);
-                }
+        //           $(this).css('opacity', 0.5);
+        //         }, function() {
+        //             $(this).css('opacity', 1);
+
+        //         }
 
 
-           );
+        //   );
+
+$(document).ready(function() {
+//   $('.hoverText').hide();
+    $('img').animate({
+      opacity:1
+});
+
+
+$('img').hover(function() {
+    $(this).stop().animate({opacity:.4},200);
+    // $('.hoverText').fadeIn();
+
+}, function() {
+    $(this).stop().animate({opacity:1},500)
+    // $(this).fadeOut();
+});
+});
+
+
+$(document).ready(function() {
+  $('.hoverText').hide();
+});
+$('.dynamicImage').hover(function() {
+
+    $(this).find('.hoverText').fadeIn();
+
+}, function() {
+
+    $(this).find('.hoverText').fadeOut();
+});
+
+
+
+
 
 
         }
@@ -268,6 +306,8 @@ $("#submitForRecipes").on('click', function(event) {
             // dropdownList.addClass("btn");
             dropdownList.attr('data-activates', "dropdown" + recipeNumber);
             console.log(dropdownList);
+
+
             dropdownList.text("ingredients");
             //ul.addId("dropdown"+recipeNumber);
             var ingredientNames = results.extendedIngredients
@@ -290,6 +330,7 @@ $("#submitForRecipes").on('click', function(event) {
                 hover: true, // Activate on hover
                 gutter: 0, // Spacing from edge
                 belowOrigin: true, // Displays dropdown below the button
+
                 alignment: 'left', // Displays dropdown with edge aligned to the left of button
                 stopPropagation: false // Stops event propagation
             });
