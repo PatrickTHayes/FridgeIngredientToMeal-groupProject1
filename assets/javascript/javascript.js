@@ -22,7 +22,7 @@ $("#addIngrButton").on('click', function() {
     ingrClose.addClass("deleteBox");
     ingrClose.append("✖︎");
 
-    if (ingredientInput != '') {
+    if (ingredientInput != '') { // make sure input isn't empty
         // Append the button to the to do item
         ingredientSpace = ingredientSpace.prepend(ingrClose);
 
@@ -35,16 +35,18 @@ $("#addIngrButton").on('click', function() {
         // Add to the ingredient list
         ingrCount++;
 
-    };
+    }; //else {} // if we want to display to user that
 
 });
 
+//Call add ingredient function if user hits enter
 $("#ingredients").keyup(function(event) {
     if (event.keyCode === 13) {
         $("#addIngrButton").click();
     }
 });
 
+//Function to delete ingredients
 $(document.body).on("click", ".deleteBox", function() {
 
     // Get the number of the button from its data attribute and hold in a variable .
@@ -57,6 +59,7 @@ $(document.body).on("click", ".deleteBox", function() {
     listOfIngredients.splice(this, 1);
 });
 
+//Firebase config
 var config = {
     apiKey: "AIzaSyB3lbSA5Y4e4StvaYtm5sno0pDad-90NeM",
     authDomain: "groupproject1-fridgetomeal.firebaseapp.com",
@@ -68,9 +71,8 @@ var config = {
 
 firebase.initializeApp(config);
 var database = firebase.database();
-//test branch
-$(function() { //Function populates our videosGoHere division when called by click event.
-    //Replace indicator when we know which click event should trigger our function
+$(function() {
+    //Function populates our videosGoHere division when called by click event.
     $(document.body).on("click", ".individualRecipes", function(e) {
         e.preventDefault();
         $("#videosGoHere").html(""); //clear out old carousel videos if present
