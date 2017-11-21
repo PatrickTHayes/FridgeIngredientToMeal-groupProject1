@@ -83,14 +83,12 @@ $(function() {
         $("#videosGoHere").html(""); //clear out old carousel videos if present
         var carousel = $("<div class='carousel'>"); //create brand new carousel div element
         $("#videosGoHere").append(carousel); // place in videosGoHere div
-        console.log("On click recipe has fired");
         var queryTitle = $(this).attr("data-title"); //hook title of recipe
         //prepare request
-        var request = gapi.client.youtube.search.list({
+        var request = gapi.client.youtube.search.list({ //parameters
             part: "snippet",
             type: "video",
-            //change the hook here to whatever are ingredients
-            q: queryTitle, //encodeURIComponent(queryTitle), //I'm not sure if this is needed at the end. Testing shows it works with spaces without it added//.replace(/%20/g, "+"),
+            q: queryTitle,
             maxResults: 5,
             order: "viewCount",
             publishedAfter: "2010-01-01T00:00:00Z"
