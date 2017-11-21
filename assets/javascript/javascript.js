@@ -68,6 +68,7 @@ $(function() {
     //Replace indicator when we know which click event should trigger our function
     $(document.body).on("click", ".individualRecipes", function(e) {
         e.preventDefault();
+        $(".carousel").html(""); //clear out old carousel videos if present
         console.log("On click recipe has fired")
         var queryTitle = $(this).attr("data-title");
         //prepare request
@@ -91,6 +92,7 @@ $(function() {
                 var htmlVideo = "<a class='carousel-item' href='#one!'><div class='video-container'><iframe src='https://www.youtube.com/embed/" + videoId + "' width='560' height='315' frameborder='0' allowfullscreen></iframe></div></a>";
                 $(".carousel").append(htmlVideo);
             })
+            //initialize carousel and give parameters
             $(document).ready(function() {
                 $('.carousel').carousel({
                     //height: 500,
