@@ -55,3 +55,8 @@ img {
     color: #1e88e5 !important;
     height: 500px;
 }
+
+.page-footer {
+    background: #BFC5D3;
+    text-align: center;
+}
