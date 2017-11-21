@@ -201,6 +201,18 @@ $("#submitForRecipes").on('click', function(event) {
             $("#recipesGoHere").prepend(recipeDiv);
 
 
+            // when you hover over the image it changes opacity
+               $('img').hover(function() {
+
+                   $(this).css('opacity', 0.5);
+                    $(this).text("test");
+                }, function() {
+                    $(this).css('opacity', 1);
+                }
+
+
+           );
+
 
         }
     })

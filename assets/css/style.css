@@ -59,10 +59,16 @@ img {
     height: 500px;
 }
 
-.dropdownList {
-    max-height: 300px;
+/*ingredient button and the content*/
+.dropdown-content {
+    max-height: 200px;
+    width: 220px;
+    text-align: center;
 }
 
 .dropdown-button {
     max-height: 300px;
+    width: 250px;
+    text-align: center;
+
 }
