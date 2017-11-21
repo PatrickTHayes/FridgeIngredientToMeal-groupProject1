@@ -81,12 +81,12 @@ $(function() { //Function populates our videosGoHere division when called by cli
             q: queryTitle, //encodeURIComponent(queryTitle), //I'm not sure if this is needed at the end. Testing shows it works with spaces without it added//.replace(/%20/g, "+"),
             maxResults: 5,
             order: "viewCount",
-            publishedAfter: "2015-01-01T00:00:00Z"
+            publishedAfter: "2010-01-01T00:00:00Z"
         })
         //execute request
         request.execute(function(response) {
             //console.log(response);
-            setTimeout(function() { //wait before execute request so jQuery finds newly created carousel element
+            setTimeout(function() { //wait short delay before execute request so jQuery finds newly created carousel element
                 var results = response.result;
                 $.each(results.items, function(index, item) {
                     console.log(item)
