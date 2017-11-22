@@ -206,14 +206,14 @@ $("#submitForRecipes").on('click', function(event) {
             singleRecipeDiv.attr('data-title', results[i].title);*/
 
             // Creating a paragraph tag with recipe title
-            var p = $("<p class='individualRecipes'>").text("title: " + title);
+            var p = $("<p class='individualRecipes'>").text(title);
             p.attr("data-title", uriTitle);
 
               // Creating an image tag
-            image = "<div class= 'dynamicImage'><img src=" + image + " class='individualRecipes' data-title=" + uriTitle + "> <p class='hoverText'>Click on a recipe to search for a video</p> </div>";
+            image = "<div class= 'dynamicImage'><img src=" + image + " class='individualRecipes' data-title=" + uriTitle + "> <p class='hoverText'>Click to find a helpful cooking tutorial</p> </div>";
             //image.attr("data-title", title);
 
-            // var message = $("<p class='.message'>").text("click for information");
+
 
             console.log(image);
             console.log(id);
