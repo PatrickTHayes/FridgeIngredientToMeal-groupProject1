@@ -51,6 +51,22 @@ $("#ingredients").keyup(function(event) {
     }
 });
 
+
+// button to clear out all ingredients
+$("#clearAllIngredients").on("click", function() {
+    $("#listOfIngredients").empty();
+      // Add the button and ingredient to the div
+        $("#listOfIngr").empty();
+
+        // Clear the textbox too
+        $("#ingredients").val("");
+
+        // set ingrCount back to 0
+        ingrCount = 0;
+
+});
+
+
 //Function to delete ingredients
 $(document.body).on("click", ".deleteBox", function() {
 
