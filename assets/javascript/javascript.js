@@ -1,23 +1,21 @@
-//function checking firebase for ingredient list - if condition
-//if no list exists create empty array
+// global variables
 var ingrCount = 0
 var listOfIngredients = [];
-// Creating a div with the class "item"
 
 
+// when you click on the add button for ingredients
 $("#addIngrButton").on('click', function() {
+    //grab the value from input field
     var ingredientInput = $("#ingredients").val().trim();
     var ingredientSpace = $("<p>");
+    // assign it an ID and add to ingrCount
     ingredientSpace.attr("id", "ingredient-" + ingrCount);
     ingredientSpace.append(" " + ingredientInput);
-
+    // add to listOfIngredients
     listOfIngredients.push(ingredientInput);
 
-
-
-
+    // creating a button to delete just that ingredient
     var ingrClose = $("<button>");
-
     ingrClose.attr("data-ingr", ingrCount);
     ingrClose.addClass("deleteBox");
     ingrClose.append("✖︎");
@@ -55,14 +53,14 @@ $("#ingredients").keyup(function(event) {
 // button to clear out all ingredients
 $("#clearAllIngredients").on("click", function() {
     $("#listOfIngredients").empty();
-      // Add the button and ingredient to the div
-        $("#listOfIngr").empty();
+    // Add the button and ingredient to the div
+    $("#listOfIngr").empty();
 
-        // Clear the textbox too
-        $("#ingredients").val("");
+    // Clear the textbox too
+    $("#ingredients").val("");
 
-        // set ingrCount back to 0
-        ingrCount = 0;
+    // set ingrCount back to 0
+    ingrCount = 0;
 
 });
 
@@ -136,7 +134,7 @@ $(function() {
         })
     })
 })
-
+// function to initialize our carousel
 function carouselInit() {
     $('.carousel').carousel({
         //height: 500,
@@ -156,20 +154,20 @@ function init() {
     })
 }
 
+// when you click on the submit button
 $("#submitForRecipes").on('click', function(event) {
-
+    // prevent default
     event.preventDefault();
-
+    // will take everything from listOfIngredients and make one giant string for ingredients parameter
     var userIngredients = "";
 
     for (var i = 0; i < listOfIngredients.length; i++) {
         userIngredients += listOfIngredients[i];
+        // only do this to ingredients that are not first item in array
         if (i != listOfIngredients.length - 1) {
             userIngredients += ",";
         }
     }
-
-
 
     console.log(userIngredients);
     //URL set up using jquery param method and plugging in users ingredients into URL parameters
@@ -225,11 +223,9 @@ $("#submitForRecipes").on('click', function(event) {
             var p = $("<p class='individualRecipes'>").text(title);
             p.attr("data-title", uriTitle);
 
-              // Creating an image tag
+            // Creating an image tag
             image = "<div class= 'dynamicImage'><img src=" + image + " class='individualRecipes' data-title=" + uriTitle + "> <p class='hoverText'>Click to find a helpful cooking tutorial</p> </div>";
             //image.attr("data-title", title);
-
-
 
             console.log(image);
             console.log(id);
@@ -238,51 +234,47 @@ $("#submitForRecipes").on('click', function(event) {
             recipeDiv.append(image);
             // recipeDiv.append(message);
 
-
             // prepend the recipeDiv to the "#recipesGoHere" div in the HTML
             $("#recipesGoHere").prepend(recipeDiv);
 
-$(document).ready(function() {
-//   $('.hoverText').hide();
-    $('img').animate({
-      opacity:1
-});
+            // set image to regular opacity
+            $(document).ready(function() {
+                $('img').animate({
+                    opacity: 1
+                });
 
+                // function for on hover of image fade the image
+                $('img').hover(function() {
+                    $(this).stop().animate({ opacity: .4 }, 200);
 
-$('img').hover(function() {
-    $(this).stop().animate({opacity:.4},200);
-    // $('.hoverText').fadeIn();
+                }, function() {
+                    $(this).stop().animate({ opacity: 1 }, 500)
+                    // $(this).fadeOut();
+                });
+            });
 
-}, function() {
-    $(this).stop().animate({opacity:1},500)
-    // $(this).fadeOut();
-});
-});
+            // function when you hover over image to display text
+            $(document).ready(function() {
+                $('.hoverText').hide();
+            });
+            $('.dynamicImage').hover(function() {
+                // show user the hoverText
+                $(this).find('.hoverText').fadeIn();
 
-
-$(document).ready(function() {
-  $('.hoverText').hide();
-});
-$('.dynamicImage').hover(function() {
-
-    $(this).find('.hoverText').fadeIn();
-
-}, function() {
-
-    $(this).find('.hoverText').fadeOut();
-});
-
-
-
+            }, function() {
+                // fade it out and hide it
+                $(this).find('.hoverText').fadeOut();
+            });
 
         }
     })
 
+
+    // function to get the recipe information for each recipe we got
     function getRecipe(id, recipeNumber, recipeDiv) {
         console.log(id)
         var queryURL2 = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/' + id + '/information';
         queryURL2 += '?' + $.param({
-
 
             'includeNutrition': false
 
@@ -296,31 +288,23 @@ $('.dynamicImage').hover(function() {
         }).done(function(response2) {
             console.log(response2);
 
-
             var results = response2;
-
-
-            var ul = $("<ul class='dropdown-content' id='dropdown" + recipeNumber + "'>") //.text("ingredients: ");
+            //creating a dropdown to display these results under each recipe
+            var ul = $("<ul class='dropdown-content' id='dropdown" + recipeNumber + "'>")
             // <!-- Dropdown Trigger -->
-            var dropdownList = $("<a>"); // class='dropdown-button btn' href='#' data-activates='dropdown1'>Drop Me!</a>
+            var dropdownList = $("<a>");
             dropdownList.addClass("dropdown-button btn");
-            // dropdownList.addClass("btn");
             dropdownList.attr('data-activates', "dropdown" + recipeNumber);
             console.log(dropdownList);
-
-
+            // adding each ingredient to dropdown list
             dropdownList.text("ingredients");
-            //ul.addId("dropdown"+recipeNumber);
             var ingredientNames = results.extendedIngredients
             for (var i = 0; i < ingredientNames.length; i++) {
-
                 var li = "<li>" + "-" + ingredientNames[i].name + "</li>";
                 ul.append(li);
             }
 
-
             dropdownList.append(ul);
-
 
             // prepend the recipeDiv to the "#recipesGoHere" div in the HTML
             $(recipeDiv).append(dropdownList);
