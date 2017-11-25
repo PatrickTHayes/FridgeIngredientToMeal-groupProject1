@@ -1,5 +1,9 @@
 body {
-    background-image: url("../images/brickwall.png");
+    background-image: url("https://i0.wp.com/communitylearningwest.net/wp-content/uploads/2016/12/healthy-food-1.jpg?fit=1280%2C775");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
 }
 
 .carousel-item {
@@ -11,10 +15,31 @@ body {
     height: 282px !important;
 }
 
+.individualRecipes {
+
+    text-shadow: black 0px 0px 10px;
+    color: gold;
+    font-size: 24px;
+    font-weight: bolder;
+    font-family: 'Lobster';
+
+}
+
+
 .page-header {
-    background: #1e88e5;
-    margin-left: 5px;
-    margin-right: 5px;
+
+    text-align: center;
+    background-color: #1e88e5;
+    max-width: 50%;
+    margin-left: 25%;
+    margin-top: 2%;
+    margin-bottom: 5%;
+    border-radius: 25px;
+    font-family: 'Lobster', cursive;
+    border-bottom-style: outset;
+    text-shadow: gold 0px 0px 10px;
+    color: gold;
+
 }
 
 .white-text {
@@ -37,10 +62,13 @@ body {
 
 #submitContent {
     border-style: inset;
-    margin-left: 5px;
+    margin-left: 40px;
     background: white;
     margin-right: 50px;
     background-color: #DBE3F6;
+    border-radius: 25px;
+    margin-top: 5%;
+
 }
 
 #ingredients {
@@ -63,6 +91,7 @@ body {
 img {
     height: 200px;
     width: 250px;
+    border-radius: 25px;
 }
 
 .active {
