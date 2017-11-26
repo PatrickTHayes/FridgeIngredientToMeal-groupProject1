@@ -1,19 +1,34 @@
-//function checking firebase for ingredient list - if condition
-
 //if no list exists create empty array
 var ingrCount = 0
 var listOfIngredients = [];
 
+
+
 $("#addIngrButton").on('click', function() {
     var ingredientInput = $("#ingredients").val().trim(); //grab and trim ingrendient text from user, store as var
+
+    //make sure ingredient exists, if so then push it to array, push to firebase, call addIngr function
+    if (ingredientInput !== '') {
+        listOfIngredients.push(ingredientInput);
+        database.ref().set({
+            listOfIngredients: listOfIngredients
+        })
+        addIngr(ingredientInput);
+    }
+    else { // if empty input display message in ingredient box for a short time and dont run addIngr
+        $("#ingredientsLabel").html('<span style="color:red">"Please input an ingredient!"</span>'); //change color
+        setTimeout(function() {
+            $("#ingredientsLabel").html("Ingredients"); //return to normal
+        }, 2500)
+    }
+})
+
+function addIngr(ingredientInput) {
     var ingredientSpace = $("<p>"); // create p element
     ingredientSpace.attr("id", "ingredient-" + ingrCount); //create dynamic id
     ingredientSpace.append(" " + ingredientInput); //place user input in p element
 
-    //make sure ingredient exists, if so then push it to array
-    if (ingredientInput !== '') {
-        listOfIngredients.push(ingredientInput);
-    }
+
     //create button element, give it an attr and class, give it an X for the button
     var ingrClose = $("<button>");
     ingrClose.attr("data-ingr", ingrCount);
@@ -30,13 +45,8 @@ $("#addIngrButton").on('click', function() {
         // Add to the ingredient list
         ingrCount++;
     }
-    else { // if empty input display message in ingredient box for a short time
-        $("#ingredientsLabel").html('<span style="color:red">"Please input an ingredient!"</span>'); //change color
-        setTimeout(function() {
-            $("#ingredientsLabel").html("Ingredients"); //return to normal
-        }, 2500)
-    }
-});
+
+};
 
 //Call add ingredient function if user hits enter
 $("#ingredients").keyup(function(event) {
@@ -54,6 +64,10 @@ $(document.body).on("click", ".deleteBox", function() {
     $("#ingredient-" + ingrNumber).remove();
     //delete the item from the array
     listOfIngredients.splice(this, 1);
+    //set array to new database array
+    database.ref().set({
+        listOfIngredients: listOfIngredients
+    });
 });
 
 
@@ -76,6 +90,27 @@ var config = {
 //initialize Firebase
 firebase.initializeApp(config);
 var database = firebase.database();
+
+//function checking firebase for ingredient list - if condition
+database.ref().on("value", function(snapshot) {
+    if (snapshot.child("listOfIngredients").exists()) {
+        listOfIngredients = snapshot.val().listOfIngredients; //Change ingredient array
+        $("#listOfIngr").html(''); //clear out old ingredient display
+        console.log(listOfIngredients);
+        displayIngr(listOfIngredients);
+    }
+}, function(errorObject) {
+    console.log("The read failed: " + errorObject.code);
+});
+//simple function when called creates the ingredient list
+function displayIngr(array) {
+    console.log('displayIngr has been called');
+    console.log(array);
+    for (var i = 0; i < array.legnth; i++) { //create the ingredient display
+        addIngr(array[i]);
+    };
+}
+
 $(function() {
     //Function populates our videosGoHere division when called by click event.
     $(document.body).on("click", ".individualRecipes", function(e) {
@@ -162,9 +197,8 @@ $("#submitForRecipes").on('click', function(event) {
         'ranking': 1,
         // 'ingredientsRequired': true
         'instructionsRequired': false
-
-
     }); //fillIngredients=false&ingredients=apples%2Cflour%2Csugar&limitLicense=false&number=5&ranking=1'
+
     //Ajax call after our query has been set up
     $.ajax({
         url: queryURL,
