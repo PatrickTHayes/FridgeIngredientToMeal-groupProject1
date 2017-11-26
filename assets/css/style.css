@@ -27,6 +27,7 @@ body {
 
 
 .page-header {
+<<<<<<< HEAD
 
     text-align: center;
     background-color: #1e88e5;
@@ -40,6 +41,11 @@ body {
     text-shadow: gold 0px 0px 10px;
     color: gold;
 
+=======
+    background: #00b8d4;
+    margin-left: 5px;
+    margin-right: 5px;
+>>>>>>> c5ba73baa4d5dd0523bb40c87e44e4f359980910
 }
 
 .white-text {
@@ -48,6 +54,8 @@ body {
 
 #addIngrButton {
     margin-top: 20px;
+    background-color: #00b8d4;
+
 }
 
 .deleteBox {
@@ -65,10 +73,14 @@ body {
     margin-left: 40px;
     background: white;
     margin-right: 50px;
+<<<<<<< HEAD
     background-color: #DBE3F6;
     border-radius: 25px;
     margin-top: 5%;
 
+=======
+    background-color: white;
+>>>>>>> c5ba73baa4d5dd0523bb40c87e44e4f359980910
 }
 
 #ingredients {
@@ -76,8 +88,8 @@ body {
 }
 
 #ingredients:focus:not([readonly]) {
-    border-bottom: 1px solid #1e88e5;
-    box-shadow: 0 1px 0 0 #1e88e5;
+    border-bottom: 1px solid #00b8d4;
+    box-shadow: 0 1px 0 0 #00b8d4;
 }
 
 
@@ -91,18 +103,36 @@ body {
 img {
     height: 200px;
     width: 250px;
+<<<<<<< HEAD
     border-radius: 25px;
+=======
+    cursor: pointer;
+>>>>>>> c5ba73baa4d5dd0523bb40c87e44e4f359980910
 }
 
 .active {
-    color: #1e88e5 !important;
+    color: #00b8d4!important;
+
     height: 500px;
 }
 
+
 .page-footer {
-    background: #BFC5D3;
+    height: 15px;
+    padding: 30px 0;
+    clear: both;
+    font-size: 12px;
+    color: #fff;
+    color: #ccc;
     text-align: center;
+    background: #BFC5D3;
+    border-top: 3px solid #00b8d4;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin-top: 20px;
 }
+
 
 /*ingredient button and the content*/
 
@@ -116,4 +146,42 @@ img {
     max-height: 300px;
     width: 250px;
     text-align: center;
+    background: #00b8d4;
+    cursor: default;
+}
+
+.btn:hover {
+    background: #00b8d4;
+}
+
+
+.hoverText {
+    width: 100%;
+    position: relative;
+    bottom: 150px;
+}
+
+.dynamicImage {
+    height: 200px;
+    width: 250px;
+}
+
+#submitForRecipes {
+    background-color: #00b8d4;
+}
+
+.btn.active {
+    color: #fff9c4 !important;
+}
+
+.hoverText {
+    width: 100%;
+    position: relative;
+    bottom: 150px;
+
+}
+
+.dynamicImage {
+    height: 200px;
+    width: 250px;
 }
