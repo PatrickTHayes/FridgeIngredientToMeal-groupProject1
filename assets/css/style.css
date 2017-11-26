@@ -74,17 +74,6 @@ img {
     height: 500px;
 }
 
-/*.page-footer {*/
-
-/*    background: #BFC5D3;*/
-
-/*    text-align: center;*/
-
-/*    position: fixed;*/
-
-/*    width: 100%;*/
-
-/*}*/
 
 .page-footer {
     height: 15px;
@@ -95,7 +84,7 @@ img {
     color: #ccc;
     text-align: center;
     background: #BFC5D3;
-    border-top: 3px solid #00b8d4;
+    border-top: 3px solid #4aaaa5;
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -141,4 +130,16 @@ img {
 
 .btn.active {
     color: #fff9c4 !important;
+}
+
+.hoverText {
+    width: 100%;
+    position: relative;
+    bottom: 150px;
+
+}
+
+.dynamicImage {
+    height: 200px;
+    width: 250px;
 }
