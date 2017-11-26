@@ -138,3 +138,7 @@ img {
 #submitForRecipes {
     background-color: #00b8d4;
 }
+
+.btn.active {
+    color: #fff9c4 !important;
+}
