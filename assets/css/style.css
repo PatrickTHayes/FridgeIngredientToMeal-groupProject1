@@ -12,7 +12,7 @@ body {
 }
 
 .page-header {
-    background: #1e88e5;
+    background: #00b8d4;
     margin-left: 5px;
     margin-right: 5px;
 }
@@ -23,6 +23,8 @@ body {
 
 #addIngrButton {
     margin-top: 20px;
+    background-color: #00b8d4;
+
 }
 
 .deleteBox {
@@ -40,7 +42,7 @@ body {
     margin-left: 5px;
     background: white;
     margin-right: 50px;
-    background-color: #DBE3F6;
+    background-color: white;
 }
 
 #ingredients {
@@ -48,8 +50,8 @@ body {
 }
 
 #ingredients:focus:not([readonly]) {
-    border-bottom: 1px solid #1e88e5;
-    box-shadow: 0 1px 0 0 #1e88e5;
+    border-bottom: 1px solid #00b8d4;
+    box-shadow: 0 1px 0 0 #00b8d4;
 }
 
 
@@ -63,17 +65,43 @@ body {
 img {
     height: 200px;
     width: 250px;
+    cursor: pointer;
 }
 
 .active {
-    color: #1e88e5 !important;
+    color: #00b8d4!important;
+
     height: 500px;
 }
 
+/*.page-footer {*/
+
+/*    background: #BFC5D3;*/
+
+/*    text-align: center;*/
+
+/*    position: fixed;*/
+
+/*    width: 100%;*/
+
+/*}*/
+
 .page-footer {
-    background: #BFC5D3;
+    height: 15px;
+    padding: 30px 0;
+    clear: both;
+    font-size: 12px;
+    color: #fff;
+    color: #ccc;
     text-align: center;
+    background: #BFC5D3;
+    border-top: 3px solid #00b8d4;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin-top: 20px;
 }
+
 
 /*ingredient button and the content*/
 
@@ -87,4 +115,26 @@ img {
     max-height: 300px;
     width: 250px;
     text-align: center;
+    background: #00b8d4;
+    cursor: default;
+}
+
+.btn:hover {
+    background: #00b8d4;
+}
+
+
+.hoverText {
+    width: 100%;
+    position: relative;
+    bottom: 150px;
+}
+
+.dynamicImage {
+    height: 200px;
+    width: 250px;
+}
+
+#submitForRecipes {
+    background-color: #00b8d4;
 }
