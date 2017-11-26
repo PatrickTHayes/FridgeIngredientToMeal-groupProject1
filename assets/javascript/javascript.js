@@ -129,7 +129,7 @@ $(function() {
 
             //initialize carousel and give parameters
             $(document).ready(function() {
-                setTimeout(function() { carouselInit() }, 3000) //wait 3 seconds before running carouselinit
+                setTimeout(function() { carouselInit() }, 1750) //wait 3 seconds before running carouselinit
             });
         })
     })
