@@ -1,6 +1,19 @@
 //if no list exists create empty array
-var ingrCount = 0
+var ingrCount = 0;
 var listOfIngredients = [];
+//Firebase config
+var config = {
+    apiKey: "AIzaSyB3lbSA5Y4e4StvaYtm5sno0pDad-90NeM",
+    authDomain: "groupproject1-fridgetomeal.firebaseapp.com",
+    databaseURL: "https://groupproject1-fridgetomeal.firebaseio.com",
+    projectId: "groupproject1-fridgetomeal",
+    storageBucket: "groupproject1-fridgetomeal.appspot.com",
+    messagingSenderId: "32759158700"
+};
+
+//initialize Firebase
+firebase.initializeApp(config);
+var database = firebase.database();
 
 
 
@@ -13,7 +26,7 @@ $("#addIngrButton").on('click', function() {
         database.ref().set({
             listOfIngredients: listOfIngredients
         })
-        addIngr(ingredientInput);
+        //addIngr(ingredientInput);
     }
     else { // if empty input display message in ingredient box for a short time and dont run addIngr
         $("#ingredientsLabel").html('<span style="color:red">"Please input an ingredient!"</span>'); //change color
@@ -64,32 +77,24 @@ $(document.body).on("click", ".deleteBox", function() {
     $("#ingredient-" + ingrNumber).remove();
     //delete the item from the array
     listOfIngredients.splice(this, 1);
+    console.log(ingrNumber);
     //set array to new database array
-    database.ref().set({
-        listOfIngredients: listOfIngredients
-    });
+    database.ref('listOfIngredients/' + ingrNumber).remove();
 });
 
 
 //function to clear ingredient list
 $(document.body).on("click", "#clearAllIngredients", function() {
     $("#listOfIngr").html(""); //Clear text field
-    listOfIngredients = []; //clear array
+    //listOfIngredients = []; //clear array
+    for (var i = 0; i < listOfIngredients.length; i++) {
+        console.log(i);
+        database.ref('listOfIngredients/' + i).remove();
+
+    }
 });
 
 
-//Firebase config
-var config = {
-    apiKey: "AIzaSyB3lbSA5Y4e4StvaYtm5sno0pDad-90NeM",
-    authDomain: "groupproject1-fridgetomeal.firebaseapp.com",
-    databaseURL: "https://groupproject1-fridgetomeal.firebaseio.com",
-    projectId: "groupproject1-fridgetomeal",
-    storageBucket: "groupproject1-fridgetomeal.appspot.com",
-    messagingSenderId: "32759158700"
-};
-//initialize Firebase
-firebase.initializeApp(config);
-var database = firebase.database();
 
 //function checking firebase for ingredient list - if condition
 database.ref().on("value", function(snapshot) {
@@ -104,10 +109,13 @@ database.ref().on("value", function(snapshot) {
 });
 //simple function when called creates the ingredient list
 function displayIngr(array) {
+    var target = array;
     console.log('displayIngr has been called');
-    console.log(array);
-    for (var i = 0; i < array.legnth; i++) { //create the ingredient display
-        addIngr(array[i]);
+    console.log(array.length);
+    ingrCount = 0;
+    for (var i = 0; i < target.length; i++) { //create the ingredient display
+        console.log("in the loop number of times" + i);
+        addIngr(target[i]);
     };
 }
 
