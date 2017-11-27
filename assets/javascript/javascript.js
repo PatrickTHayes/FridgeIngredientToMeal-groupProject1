@@ -1,6 +1,7 @@
 // global variables
 var ingrCount = 0
 var listOfIngredients = [];
+var listOfTitles = [];
 
 
 // when you click on the add button for ingredients
@@ -90,16 +91,25 @@ var config = {
 
 firebase.initializeApp(config);
 var database = firebase.database();
+/*function storeRecipe (title){
+    listOfTitles.push(title);
+    database.ref().set({
+        titles:listOfTitles
+    })
+}*/
 $(function() {
     //Function populates our videosGoHere division when called by click event.
     $(document.body).on("click", ".individualRecipes", function(e) {
         e.preventDefault();
+
 
         $("#videosGoHere").html(""); //clear out old carousel videos if present
         var carousel = $("<div class='carousel'>"); //create brand new carousel div element
         $("#videosGoHere").append(carousel); // place in videosGoHere div
         console.log("On click recipe has fired");
         var queryTitle = $(this).attr("data-title"); //hook title of recipe
+        //storeRecipe(queryTitle);
+
         //prepare request
         var request = gapi.client.youtube.search.list({
             part: "snippet",
