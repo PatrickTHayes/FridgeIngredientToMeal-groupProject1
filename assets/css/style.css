@@ -47,6 +47,7 @@ body {
     background: white;
     margin-right: 50px;
     background-color: white;
+
 }
 
 #ingredients {
@@ -107,7 +108,7 @@ img.individualRecipes {
     max-height: 200px;
     width: 220px;
     text-align: center;
-
+    word-break:break-all;
 }
 
 .dropdown-button {
@@ -152,4 +153,9 @@ img.individualRecipes {
 .dynamicImage {
     height: 200px;
     width: 250px;
+}
+
+
+.table {
+    word-break:break-all;
 }

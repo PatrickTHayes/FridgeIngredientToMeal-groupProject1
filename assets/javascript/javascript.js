@@ -2,6 +2,7 @@
 var ingrCount = 0
 var listOfIngredients = [];
 var listOfTitles = [];
+var listOfImages = [];
 
 
 // when you click on the add button for ingredients
@@ -79,6 +80,14 @@ $(document.body).on("click", ".deleteBox", function() {
     listOfIngredients.splice(this, 1);
 });
 
+
+// things needed to get firebase working properly
+// store objects to a table not a paragraph
+// make table width the same as that column its going in
+// pull the + out of the queryURL and uncatenate it
+// have the table draw only the first five entries
+// put a click handler on the table contents to bring up video for it
+
 //Firebase config
 var config = {
     apiKey: "AIzaSyB3lbSA5Y4e4StvaYtm5sno0pDad-90NeM",
@@ -91,15 +100,39 @@ var config = {
 
 firebase.initializeApp(config);
 var database = firebase.database();
-/*function storeRecipe (title){
+
+// function to store the recipesViewed
+function storeRecipe (title){
     listOfTitles.push(title);
-    database.ref().set({
-        titles:listOfTitles
+
+    database.ref().push({
+        titles: title,
+        dateAdded: firebase.database.ServerValue.TIMESTAMP
     })
-}*/
+    console.log(listOfTitles);
+}
+
+// function to load the data on the screen
+function loadData(childSnapshot) {
+    console.log(childSnapshot.val());
+    var sv = childSnapshot.val();
+
+
+  $(".recipesViewed").append("<tr>");
+  $(".recipesViewed").append("<td  class='viewed'>" + sv.titles + "</td>");
+}
+database.ref().limitToLast(5).orderByChild("dateAdded").on("child_added", function(childSnapshot) {
+
+ loadData(childSnapshot);
+  // Handle the errors
+}, function(errorObject) {
+  console.log("Errors handled: " + errorObject.code);
+});
+
+
 $(function() {
     //Function populates our videosGoHere division when called by click event.
-    $(document.body).on("click", ".individualRecipes", function(e) {
+    $(document.body).on("click", ".individualRecipes", ".viewed", function(e) {
         e.preventDefault();
 
 
@@ -107,7 +140,10 @@ $(function() {
         var carousel = $("<div class='carousel'>"); //create brand new carousel div element
         $("#videosGoHere").append(carousel); // place in videosGoHere div
         var queryTitle = $(this).attr("data-title"); //hook title of recipe
-        //storeRecipe(queryTitle);
+
+
+
+        storeRecipe(queryTitle);
 
         //prepare request
         var request = gapi.client.youtube.search.list({
