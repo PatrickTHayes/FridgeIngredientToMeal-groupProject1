@@ -3,12 +3,12 @@ body {
 }
 
 .carousel-item {
-    height: 282px !important;
+    height: 332px !important;
     width: 500px !important;
 }
 
 .carousel {
-    height: 282px !important;
+    height: 332px !important;
 }
 
 .page-header {
@@ -65,10 +65,15 @@ body {
     margin-right: 20px
 }
 
-img {
+img.individualRecipes {
     height: 200px;
     width: 250px;
     cursor: pointer;
+}
+
+#logoID {
+    height: 50px;
+    width: 50px;
 }
 
 .active {
@@ -101,6 +106,7 @@ img {
     max-height: 200px;
     width: 220px;
     text-align: center;
+
 }
 
 .dropdown-button {

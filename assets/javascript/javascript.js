@@ -1,6 +1,7 @@
 // global variables
 var ingrCount = 0
 var listOfIngredients = [];
+var listOfTitles = [];
 
 
 // when you click on the add button for ingredients
@@ -90,16 +91,24 @@ var config = {
 
 firebase.initializeApp(config);
 var database = firebase.database();
+/*function storeRecipe (title){
+    listOfTitles.push(title);
+    database.ref().set({
+        titles:listOfTitles
+    })
+}*/
 $(function() {
     //Function populates our videosGoHere division when called by click event.
     $(document.body).on("click", ".individualRecipes", function(e) {
         e.preventDefault();
 
+
         $("#videosGoHere").html(""); //clear out old carousel videos if present
         var carousel = $("<div class='carousel'>"); //create brand new carousel div element
         $("#videosGoHere").append(carousel); // place in videosGoHere div
-        console.log("On click recipe has fired");
         var queryTitle = $(this).attr("data-title"); //hook title of recipe
+        //storeRecipe(queryTitle);
+
         //prepare request
         var request = gapi.client.youtube.search.list({
             part: "snippet",
@@ -112,16 +121,13 @@ $(function() {
         })
         //execute request
         request.execute(function(response) {
-            //console.log(response);
             setTimeout(function() { //wait short delay before execute request so jQuery finds newly created carousel element
                 var results = response.result;
                 $.each(results.items, function(index, item) {
-                    console.log(item)
                     //$("#videosGoHere").append(item.id.videoId + " " + item.snippet.title + "<br>")
                     var videoId = item.id.videoId;
                     var htmlVideo = "<a class='carousel-item' href='#one!'><div class='video-container'><iframe src='https://www.youtube.com/embed/" + videoId + "' width='560' height='315' frameborder='0' allowfullscreen></iframe></div></a>";
                     $(".carousel").append(htmlVideo);
-                    console.log(htmlVideo)
                     //$(".carousel2").append(htmlVideo);
                 })
             }, 50)
@@ -129,7 +135,7 @@ $(function() {
 
             //initialize carousel and give parameters
             $(document).ready(function() {
-                setTimeout(function() { carouselInit() }, 3000) //wait 3 seconds before running carouselinit
+                setTimeout(function() { carouselInit() }, 1750) //wait 3 seconds before running carouselinit
             });
         })
     })
@@ -169,7 +175,6 @@ $("#submitForRecipes").on('click', function(event) {
         }
     }
 
-    console.log(userIngredients);
     //URL set up using jquery param method and plugging in users ingredients into URL parameters
     var queryURL = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients';
     queryURL += '?' + $.param({
@@ -190,12 +195,9 @@ $("#submitForRecipes").on('click', function(event) {
         method: 'GET'
     }).done(function(response) {
         $("#recipesGoHere").html(""); //clear out recipes div when called
-        //console.log(response);
         var results = response;
         // Looping over every result item
         for (var i = 0; i < results.length; i++) {
-
-            console.log(results.length);
 
             var recipeDiv = $("<div class='item'>");
             var id = results[i].id
@@ -215,7 +217,6 @@ $("#submitForRecipes").on('click', function(event) {
             var uriTitle = title.replace(/\(.+?\)/g, ''); //replace parentheses with +
             uriTitle = uriTitle.replace(/[^a-z0-9+]+/gi, ' '); //replace all non  a-z 0-9 with a space
             uriTitle = encodeURIComponent(uriTitle).replace(/%20/g, '+'); //encode to uri and change encoded spaces to +
-            console.log(uriTitle);
             /*var singleRecipeDiv = $('<div class="individualRecipes">');
             singleRecipeDiv.attr('data-title', results[i].title);*/
 
@@ -227,8 +228,6 @@ $("#submitForRecipes").on('click', function(event) {
             image = "<div class= 'dynamicImage'><img src=" + image + " class='individualRecipes' data-title=" + uriTitle + "> <p class='hoverText'>Click to find a helpful cooking tutorial</p> </div>";
             //image.attr("data-title", title);
 
-            console.log(image);
-            console.log(id);
             // append the paragraph and image we created to the "recipeDiv" div we created
             recipeDiv.append(p);
             recipeDiv.append(image);
@@ -272,21 +271,18 @@ $("#submitForRecipes").on('click', function(event) {
 
     // function to get the recipe information for each recipe we got
     function getRecipe(id, recipeNumber, recipeDiv) {
-        console.log(id)
         var queryURL2 = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/' + id + '/information';
         queryURL2 += '?' + $.param({
 
             'includeNutrition': false
 
         });
-        console.log(queryURL2);
         $.ajax({
             url: queryURL2,
             headers: { 'X-Mashape-Key': 'xsChWYIjxDmshHomTXHaaWmn7DuTp1ernr7jsnEXl2Nrg8DGIE' },
             method: 'GET'
 
         }).done(function(response2) {
-            console.log(response2);
 
             var results = response2;
             //creating a dropdown to display these results under each recipe
@@ -295,7 +291,6 @@ $("#submitForRecipes").on('click', function(event) {
             var dropdownList = $("<a>");
             dropdownList.addClass("dropdown-button btn");
             dropdownList.attr('data-activates', "dropdown" + recipeNumber);
-            console.log(dropdownList);
             // adding each ingredient to dropdown list
             dropdownList.text("ingredients");
             var ingredientNames = results.extendedIngredients
