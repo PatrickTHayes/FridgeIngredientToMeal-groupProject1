@@ -153,3 +153,8 @@ img.individualRecipes {
     height: 200px;
     width: 250px;
 }
+
+.individualRecipes {
+    font-family: sans-serif;
+    font-weight: bolder;
+}
