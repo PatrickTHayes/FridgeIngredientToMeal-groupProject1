@@ -12,11 +12,12 @@ body {
 }
 
 .page-header {
-    background: #00b8d4;
+    background: rgba(0, 0, 0, 0);
+
     font-family: 'Syncopate', sans-serif;
     margin-left: 5px;
     margin-right: 5px;
-    text-shadow: gold 0px 0px 10px;
+    text-shadow: #00b8d4 0px 0px 10px;
     font-weight: 5px;
 }
 
