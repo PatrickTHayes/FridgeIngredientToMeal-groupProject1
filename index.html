@@ -31,7 +31,7 @@
     <header class="page-header">
         <div class="container">
             <div class="row">
-                <div class="col s12">
+                <div class="col s12 m12">
                     <h1 class="white-text">Fridge 2 Plate <img id="logoID" src="assets/images/fridge2plate.png" alt="logo"></h1>
                 </div>
             </div>
@@ -42,15 +42,15 @@
     <!--middle section of the page containing main input n stuff-->
     <div class="row">
         <!--contains the search button and input fields-->
-        <div class="col s3" id="submitContent">
+        <div class="col s10 offset-s1 m3" id="submitContent">
 
             <div class="row" id="btnandsubmit">
-                <div class="col s2">
+                <div class="col s2 m2">
                     <!--+ BUTTON code-->
 
                     <a class="btn-floating btn-mini waves-effect waves-cyan accent-4" id="addIngrButton"><i class="material-icons">add</i></a>
                 </div>
-                <div class="col s10 input-field">
+                <div class="col s10 m10 input-field">
                     <!--this is where the text input goes-->
                     <label for="ingredients" id="ingredientsLabel">Ingredients</label>
                     <input id="ingredients" type="text" class="validate">
@@ -59,13 +59,13 @@
             </div>
 
             <div class="row">
-                <div class="col s12" id="listOfIngr">
+                <div class="col s12 m12" id="listOfIngr">
 
                 </div>
             </div>
 
             <div class="row">
-                <div class="col s12">
+                <div class="col s12 m12">
                     <button class="btn waves-effect waves-cyan accent-4" id="submitForRecipes" type="submit" name="action">Submit
 
                         <i class="material-icons right">send</i>
@@ -74,30 +74,50 @@
                         <i class="material-icons right">clear</i>
                     </button>
                 </div>
-                </div>
-                <div class="row">
-                <div class="table-responsive" id="recentlyViewed">
-                    <table class="table">
-                        <thread>
-                            <tr>
-                                <th>Recently Searched</th>
-                            </tr>
-                        </thread>
-                        <tbody class="recipesViewed">
-                    </table>
-                </div>
             </div>
+            <div class="row">
+
+                <!--    <div class="table-responsive" id="recentlyViewed">-->
+                <!--        <table class="table">-->
+                <!--            <thread>-->
+                <!--                <tr>-->
+                <!--                    <th>Recently Viewed</th>-->
+                <!--                </tr>-->
+                <!--            </thread>-->
+                <!--            <tbody class="recipesViewed">-->
+                <!--        </table>-->
+                <!--    </div>-->
+                <!--     <button id="seeMore">View More</button>-->
+                <!--</div>-->
 
 
+            </div>
         </div>
-
         <!--contains the recipes rendered from the search-->
-        <div class="col s8" id="recipesGoHere">
+        <div class="row">
+               <h3>Recently Viewed</h3>
+
+            <div class="col s10 offset-s1 m8" id="recentlyViewed">
+                <div class="row">
+
+                <!--        <div class="table-responsive" id="recentlyViewed">-->
+                <!--        <table class="table">-->
+                <!--            <thread>-->
+                <!--                <tr>-->
+                <!--                    <th>Recently Viewed</th>-->
+                <!--                </tr>-->
+                <!--            </thread>-->
+                <!--            <tbody class="recipesViewed">-->
+                <!--        </table>-->
+                <!--    </div>-->
+                <!--     <button id="seeMore">View More</button>-->
+                <!--</div>-->
+
+            <div class="col s10 offset-s1 m8" id="recipesGoHere">
+            </div>
         </div>
-
-
     </div>
-
+   </div>
 
     <!--videos are output and displayed down here-->
     <div class="row" id="videosGoHere">
@@ -109,7 +129,7 @@
     <footer class="page-footer">
         <div class="container">
             <div class="row">
-                <div class="col s12">
+                <div class="col s12 m12">
                     <h6 class="white-text">Code Gods Inc. © 2017</h6>
                 </div>
             </div>

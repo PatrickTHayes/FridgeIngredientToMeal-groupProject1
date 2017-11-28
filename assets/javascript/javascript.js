@@ -4,6 +4,7 @@ var listOfIngredients = [];
 var listOfTitles = [];
 var listOfImages = [];
 
+$("#recipesGoHere").hide();
 
 // when you click on the add button for ingredients
 $("#addIngrButton").on('click', function() {
@@ -102,11 +103,13 @@ firebase.initializeApp(config);
 var database = firebase.database();
 
 // function to store the recipesViewed
-function storeRecipe (title){
-    listOfTitles.push(title);
+function storeRecipe (title, image) {
+    // listOfTitles.push(uriTitle);
 
     database.ref().push({
+        // uriTitles: uriTitle,
         titles: title,
+         images: image,
         dateAdded: firebase.database.ServerValue.TIMESTAMP
     })
     console.log(listOfTitles);
@@ -118,10 +121,19 @@ function loadData(childSnapshot) {
     var sv = childSnapshot.val();
 
 
-  $(".recipesViewed").append("<tr>");
-  $(".recipesViewed").append("<td  class='viewed'>" + sv.titles + "</td>");
+//   $(".recipesViewed").append("<tr>");
+//   $(".recipesViewed").append("<button class='viewed><td>" + sv.images + "</td></button>");
+var viewedDiv = $("<div class='item'>");
+var p = $("<p class='recipesViewed'>").text(sv.title);
+// $(".recipesViewed").append("<p>");
+// $(".recipesViewed").append("<button class='viewed><p>" + sv.images + "</p></button>");
+viewedDiv.append(p);
+viewedDiv.append("<button class='viewed><p>" + sv.images + "</p></button>");
+$("#recentlyViewed").prepend(viewedDiv);
+
+
 }
-database.ref().limitToLast(5).orderByChild("dateAdded").on("child_added", function(childSnapshot) {
+database.ref().limitToLast(6).orderByChild("dateAdded").on("child_added", function(childSnapshot) {
 
  loadData(childSnapshot);
   // Handle the errors
@@ -135,7 +147,6 @@ $(function() {
     $(document.body).on("click", ".individualRecipes", ".viewed", function(e) {
         e.preventDefault();
 
-
         $("#videosGoHere").html(""); //clear out old carousel videos if present
         var carousel = $("<div class='carousel'>"); //create brand new carousel div element
         $("#videosGoHere").append(carousel); // place in videosGoHere div
@@ -143,7 +154,7 @@ $(function() {
 
 
 
-        storeRecipe(queryTitle);
+        // storeRecipe(queryTitle);
 
         //prepare request
         var request = gapi.client.youtube.search.list({
@@ -200,6 +211,9 @@ function init() {
 $("#submitForRecipes").on('click', function(event) {
     // prevent default
     event.preventDefault();
+    // clear out the recentlyViewed area
+    $("#recentlyViewed").hide();
+      $("#recipesGoHere").show();
     // will take everything from listOfIngredients and make one giant string for ingredients parameter
     var userIngredients = "";
 
@@ -233,6 +247,8 @@ $("#submitForRecipes").on('click', function(event) {
         $("#recipesGoHere").html(""); //clear out recipes div when called
         var results = response;
         // Looping over every result item
+        // storeRecipe(results.title, results.image);
+
         for (var i = 0; i < results.length; i++) {
 
             var recipeDiv = $("<div class='item'>");
@@ -267,6 +283,8 @@ $("#submitForRecipes").on('click', function(event) {
             // append the paragraph and image we created to the "recipeDiv" div we created
             recipeDiv.append(p);
             recipeDiv.append(image);
+              storeRecipe(title, image);
+
             // recipeDiv.append(message);
 
             // prepend the recipeDiv to the "#recipesGoHere" div in the HTML

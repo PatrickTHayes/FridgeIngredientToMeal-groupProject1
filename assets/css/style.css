@@ -50,6 +50,8 @@ body {
 
 }
 
+
+
 #ingredients {
     border-bottom: 1px solid #9e9e9e;
 }
@@ -72,6 +74,16 @@ img.individualRecipes {
     width: 250px;
     cursor: pointer;
 }
+
+
+
+.recipesViewed {
+    text-align: center;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+}
+
 
 #logoID {
     height: 50px;
@@ -114,6 +126,7 @@ img.individualRecipes {
 .dropdown-button {
     max-height: 300px;
     width: 250px;
+    max-width: 650px;
     text-align: center;
     background: #00b8d4;
     cursor: default;
