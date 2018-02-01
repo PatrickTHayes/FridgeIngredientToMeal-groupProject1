@@ -1,5 +1,4 @@
-# FridgeIngredientToMeal-groupProject1
-First Group project
+# FridgeIngredientToMeal App
 
 Fridge 2 Plate is an easy to use web app that runs on the front end. It utilizes user input and APIs to return recipes and how to videos for selected recipes.
 
