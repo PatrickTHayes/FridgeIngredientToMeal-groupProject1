@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Food APP</title>
+    <!--fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Courgette|Niconne|Open+Sans+Condensed:300|Sonsie+One" rel="stylesheet">
+
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <!--fonts-->
@@ -28,80 +31,74 @@
 
 <body>
     <!--header that has some text nothing too special (for now)-->
-    <header class="page-header">
+    <header class="page-header" id="toTop">
         <div class="container">
             <div class="row">
-                <div class="col s12">
-                    <h1 class="white-text">Fridge 2 Plate <img id="logoID" src="assets/images/fridge2plate.png" alt="logo"></h1>
+                <div class="col l12 m12 s12 center-align">
+                    <h1 class="headerText white-text center-align">Fridge 2 Plate <img id="logoID" src="assets/images/fridge2plate.png" alt="logo"></h1>
                 </div>
             </div>
         </div>
     </header>
 
+    <main>
+        <!--middle section of the page containing main input n stuff-->
+        <div class="row">
+            <!--contains the search button and input fields-->
+            <div class="col l3 m12 s12" id="submitContent">
 
-    <!--middle section of the page containing main input n stuff-->
-    <div class="row">
-        <!--contains the search button and input fields-->
-        <div class="col s3" id="submitContent">
-
-            <div class="row" id="btnandsubmit">
-                <div class="col s2">
-                    <!--+ BUTTON code-->
-
-                    <a class="btn-floating btn-mini waves-effect waves-cyan accent-4" id="addIngrButton"><i class="material-icons">add</i></a>
+                <div class="row" id="btnandsubmit">
+                    <div class="col l2 m2 s2 right-align">
+                        <!--+ BUTTON code-->
+                        <a class="btn-floating btn-mini waves-effect waves-cyan accent-4" id="addIngrButton"><i class="material-icons">add</i></a>
+                    </div>
+                    <div class="col l10 m9 s9 input-field">
+                        <!--this is where the text input goes-->
+                        <label for="ingredients" id="ingredientsLabel">Ingredients</label>
+                        <input id="ingredients" type="text" class="validate">
+                    </div>
                 </div>
-                <div class="col s10 input-field">
-                    <!--this is where the text input goes-->
-                    <label for="ingredients" id="ingredientsLabel">Ingredients</label>
-                    <input id="ingredients" type="text" class="validate">
 
+                <div class="row">
+                    <div class="col l12 m12 s12" id="listOfIngr"></div>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col s12" id="listOfIngr">
-
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col s12">
-                    <button class="btn waves-effect waves-cyan accent-4" id="submitForRecipes" type="submit" name="action">Submit
-
-                        <i class="material-icons right">send</i>
+                <div class="row center-align">
+                    <div class="col s6 right-align">
+                        <button class="btn waves-effect waves-cyan accent-4" id="submitForRecipes" type="submit" name="action">Submit<i class="small material-icons right">send</i>
                     </button>
-                    <button class="btn waves-effect waves-light red darken-1" id="clearAllIngredients" type="submit" name="action">Clear
-                        <i class="material-icons right">clear</i>
-                    </button>
-
-
-
+                    </div>
+                    <div class="col s6 left-align">
+                        <button class="btn waves-effect waves-light red darken-1" id="clearAllIngredients" type="submit" name="action">Clear
+                        <i class="small material-icons right">clear</i>
+                        </button>
+                    </div>
                 </div>
             </div>
+
+            <!--contains the recipes rendered from the search-->
+            <div class="col l8 m12 s12 center-align" id="recipesGoHere">
+                <h3 id="instructions">Input your ingredients and let us find a new recipe for you!</h3>
+            </div>
+            <!--contains the ingredients the user searched for -->
+            <!--<div class="col s4" id="ingredientsGoHere">-->
+            <!--</div>-->
         </div>
 
-        <!--contains the recipes rendered from the search-->
-        <div class="col s8" id="recipesGoHere">
+
+        <!--videos are output and displayed down here-->
+        <div class="row" id="videosGoHere">
+            <div class="carousel">
+
+            </div>
         </div>
-        <!--contains the ingredients the user searched for -->
-        <!--<div class="col s4" id="ingredientsGoHere">-->
-        <!--</div>-->
-    </div>
-
-
-    <!--videos are output and displayed down here-->
-    <div class="row" id="videosGoHere">
-        <div class="carousel">
-
-        </div>
-    </div>
+    </main>
 
     <footer class="page-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col s12">
-                    <h6 class="white-text">Code Gods Inc. © 2017</h6>
-                </div>
+        <div class="footer-copyright">
+            <div class="left container black-text">
+                Code Gods Inc. © 2017
+                <a class="right black-text" id="backToTop" href="#toTop">Back to the top</a>
             </div>
         </div>
     </footer>

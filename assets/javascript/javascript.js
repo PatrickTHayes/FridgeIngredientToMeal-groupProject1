@@ -101,6 +101,7 @@ $(function() {
     //Function populates our videosGoHere division when called by click event.
     $(document.body).on("click", ".individualRecipes", function(e) {
         e.preventDefault();
+        window.location.href = '#videosGoHere';
 
 
         $("#videosGoHere").html(""); //clear out old carousel videos if present
@@ -162,8 +163,10 @@ function init() {
 
 // when you click on the submit button
 $("#submitForRecipes").on('click', function(event) {
+
     // prevent default
     event.preventDefault();
+
     // will take everything from listOfIngredients and make one giant string for ingredients parameter
     var userIngredients = "";
 
@@ -173,6 +176,11 @@ $("#submitForRecipes").on('click', function(event) {
         if (i != listOfIngredients.length - 1) {
             userIngredients += ",";
         }
+    }
+
+    if (userIngredients === "") {
+        alert('You must add some ingredients to get back some recipes!');
+        return false;
     }
 
     //URL set up using jquery param method and plugging in users ingredients into URL parameters
@@ -225,7 +233,7 @@ $("#submitForRecipes").on('click', function(event) {
             p.attr("data-title", uriTitle);
 
             // Creating an image tag
-            image = "<div class= 'dynamicImage'><img src=" + image + " class='individualRecipes' data-title=" + uriTitle + "> <p class='hoverText'>Click to find a helpful cooking tutorial</p> </div>";
+            image = "<div class='dynamicImage'><img src=" + image + " class='individualRecipes' data-title=" + uriTitle + "> <p class='hoverText'>Click to find a helpful cooking tutorial</p></div>";
             //image.attr("data-title", title);
 
             // append the paragraph and image we created to the "recipeDiv" div we created
@@ -314,12 +322,6 @@ $("#submitForRecipes").on('click', function(event) {
                 alignment: 'left', // Displays dropdown with edge aligned to the left of button
                 stopPropagation: false // Stops event propagation
             });
-
-
         });
-
-
     }
-
-
 });
